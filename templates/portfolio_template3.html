@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ profile.name }} - Profile</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            background-color: #f9f9f9;
+        }
+        header {
+            background-color: #007BFF;
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+        .container {
+            width: 80%;
+            margin: 20px auto;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        h2 {
+            color: #007BFF;
+        }
+        ul {
+            padding-left: 20px;
+        }
+        .links a {
+            color: #007BFF;
+            text-decoration: none;
+            margin-right: 10px;
+        }
+        .profile-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .profile-header h1 {
+            margin: 0;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="profile-header">
+            <h1>{{ profile.name }}</h1>
+            <p>{{ profile.about }}</p>
+        </div>
+    </header>
+
+    <div class="container">
+        <!-- About Me Section -->
+        <section>
+            <h2>About Me</h2>
+            <p>{{ profile.about }}</p>
+        </section>
+
+        <!-- Skills Section -->
+        <section>
+            <h2>Skills</h2>
+            <ul>
+                {% for skill in profile.skills %}
+                    <li>{{ skill }}</li>
+                {% endfor %}
+            </ul>
+        </section>
+
+        <!-- Projects Section -->
+        <section>
+            <h2>Projects</h2>
+            <ul>
+                {% for project in profile.projects %}
+                    <li>
+                        <strong>{{ project.title }}</strong><br>
+                        <em>{{ project.description }}</em><br>
+                        <a href="{{ project.link }}" target="_blank">Project Link</a>
+                    </li>
+                {% endfor %}
+            </ul>
+        </section>
+
+        <!-- Education Section -->
+        <section>
+            <h2>Education</h2>
+            <p><strong>Course:</strong> {{ profile.education.course }}</p>
+            <p><strong>College:</strong> {{ profile.education.college }}</p>
+            <p><strong>Year:</strong> {{ profile.education.year }}</p>
+        </section>
+
+        <!-- Online Links Section -->
+        <section>
+            <h2>Online Links</h2>
+            <div class="links">
+                {% if profile.online_links.linkedin %}
+                    <a href="{{ profile.online_links.linkedin }}" target="_blank">LinkedIn</a>
+                {% endif %}
+                {% if profile.online_links.github %}
+                    <a href="{{ profile.online_links.github }}" target="_blank">GitHub</a>
+                {% endif %}
+                {% if profile.online_links.email %}
+                    <a href="mailto:{{ profile.online_links.email }}">Email</a>
+                {% endif %}
+                {% if profile.online_links.phone %}
+                    <a href="tel:{{ profile.online_links.phone }}">Phone</a>
+                {% endif %}
+            </div>
+        </section>
+    </div>
+</body>
+</html>

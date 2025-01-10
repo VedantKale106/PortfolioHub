@@ -1,0 +1,15 @@
+<!-- Download Button -->
+    <div class="container">
+        <button onclick="downloadProfile()">Download Profile</button>
+    </div>
+    
+    <script>
+        function downloadProfile() {
+            const profileHtml = document.documentElement.outerHTML;
+            const blob = new Blob([profileHtml], { type: 'text/html' });
+            const link = document.createElement('a');
+            link.href = URL.createObjectURL(blob);
+            link.download = 'profile.html';
+            link.click();
+        }
+    </script>

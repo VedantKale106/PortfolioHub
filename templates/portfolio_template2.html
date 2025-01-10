@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ profile.name }}</title>
+
+</head>
+
+<body>
+    <style>
+        /* Reset styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background: #1f1f1f;
+            /* Dark background */
+            color: #e0e0e0;
+            /* Light grey text */
+            line-height: 1.6;
+            text-align: center;
+        }
+
+        /* Header */
+        header {
+            background-color: #333;
+            /* Dark grey background */
+            color: white;
+            padding: 2rem 0;
+        }
+
+        header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        header p {
+            font-size: 1.1rem;
+            margin-top: 0.5rem;
+        }
+
+        /* Container */
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        /* Section Styles */
+        section {
+            padding: 2rem 0;
+        }
+
+        h2 {
+            font-size: 2.5rem;
+            color: #e0e0e0;
+            margin-bottom: 1rem;
+            border-bottom: 2px solid #555;
+            /* Darker border */
+            display: inline-block;
+            padding-bottom: 0.5rem;
+        }
+
+        /* About Me Section */
+        .about-me p {
+            font-size: 1.2rem;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        /* Skills Section */
+        .skills ul {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+            list-style-type: none;
+            padding: 0;
+            margin-top: 1.5rem;
+        }
+
+        .skills ul li {
+            background-color: #444;
+            /* Dark grey background */
+            padding: 1rem 2rem;
+            border-radius: 50px;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+        }
+
+        .skills ul li:hover {
+            background-color: #222;
+            /* Even darker on hover */
+            color: white;
+            transform: translateY(-5px);
+        }
+
+        /* Education Section */
+        .education .education-card {
+            background: #333;
+            /* Dark grey background */
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            margin: 1rem;
+            text-align: center;
+            flex-basis: 30%;
+            transition: all 0.3s ease;
+        }
+
+        .education .education-card:hover {
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+            transform: translateY(-10px);
+        }
+
+        .education .education-card h3 {
+            font-size: 1.5rem;
+            color: #e0e0e0;
+            margin-bottom: 1rem;
+        }
+
+        .education .education-card p {
+            font-size: 1rem;
+            margin-bottom: 1.5rem;
+            color: #bbb;
+            /* Lighter grey for text */
+        }
+
+        /* Projects Section */
+        .projects .project-list {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .projects .project-card {
+            background: #333;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            margin: 1rem;
+            text-align: center;
+            flex-basis: 30%;
+            transition: all 0.3s ease;
+        }
+
+        .projects .project-card:hover {
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+            transform: translateY(-10px);
+        }
+
+        .projects .project-card h3 {
+            font-size: 1.5rem;
+            color: #e0e0e0;
+            margin-bottom: 1rem;
+        }
+
+        .projects .project-card p {
+            font-size: 1rem;
+            margin-bottom: 1.5rem;
+            color: #bbb;
+        }
+
+        .projects .project-card a {
+            text-decoration: none;
+            color: #fff;
+            font-weight: 500;
+            border: 2px solid #555;
+            padding: 0.8rem 1.5rem;
+            border-radius: 30px;
+            transition: all 0.3s ease;
+        }
+
+        .projects .project-card a:hover {
+            background-color: #444;
+            color: white;
+            transform: translateY(-3px);
+        }
+
+        /* Contact Section */
+        .contact-form {
+            max-width: 800px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .contact-form input,
+        .contact-form textarea {
+            padding: 1rem;
+            margin-bottom: 1rem;
+            border-radius: 5px;
+            border: 1px solid #666;
+            font-size: 1rem;
+            background-color: #333;
+            color: #e0e0e0;
+        }
+
+        .contact-form button {
+            padding: 1rem;
+            background-color: #555;
+            /* Dark grey background for button */
+            color: white;
+            border: none;
+            font-size: 1.2rem;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .contact-form button:hover {
+            background-color: #444;
+            /* Darker grey on hover */
+        }
+
+        /* Footer Styles */
+        footer {
+            background-color: #222;
+            /* Almost black background */
+            color: white;
+            padding: 20px 0;
+        }
+
+        footer .social-links {
+            margin-top: 10px;
+            font-size: 1.1rem;
+        }
+
+        footer .social-links a {
+            color: #e0e0e0;
+            text-decoration: none;
+            margin: 0 15px;
+            transition: color 0.3s ease;
+        }
+
+        footer .social-links a:hover {
+            color: #bbb;
+            text-decoration: underline;
+        }
+
+        /* Media Queries for Mobile Responsiveness */
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 2rem;
+            }
+
+            .container {
+                width: 95%;
+                padding: 1.5rem;
+            }
+
+            h2 {
+                font-size: 2rem;
+            }
+
+            .skills ul {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .projects .project-card {
+                flex-basis: 100%;
+                margin: 1rem 0;
+            }
+
+            .contact-form {
+                width: 100%;
+            }
+
+            footer .social-links {
+                font-size: 1rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            header h1 {
+                font-size: 1.8rem;
+            }
+
+            header p {
+                font-size: 1rem;
+            }
+
+            h2 {
+                font-size: 1.8rem;
+            }
+
+            .skills ul li {
+                padding: 0.8rem 1.5rem;
+            }
+
+            footer .social-links a {
+                font-size: 0.9rem;
+            }
+        }
+    </style>
+    <!-- Header Section -->
+    <header>
+        <h1>{{ profile.name }}</h1>
+    </header>
+
+    <div class="container">
+
+        <!-- About Me Section -->
+        <section class="about-me">
+            <h2>{{ profile.about }}</h2>
+
+        </section>
+
+        <!-- Skills Section -->
+        <section class="skills">
+            <h2>Skills</h2>
+            <ul>
+                {% for skill in profile.skills %}
+                <li>{{ skill }}</li>
+                {% endfor %}
+            </ul>
+        </section>
+
+        <!-- Education Section -->
+        <section class="education">
+            <h2>Education</h2>
+            <div class="education-card">
+                <h3>{{ profile.education.course }}</h3>
+                <p>{{ profile.education.year }}</p>
+                <p>{{ profile.education.college }}</p>
+            </div>
+        </section>
+
+        <!-- Projects Section -->
+        <section class="projects"
+            style="padding: 20px; background-color: #1f1f1f; border-radius: 10px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);">
+            <h2 style="text-align: center; color: #fffefe; font-family: 'Arial', sans-serif; font-size: 2rem;">Projects
+            </h2>
+            <div class="project-list" style="display: flex; flex-wrap: wrap; gap: 20px; justify-content: center;">
+                {% for project in profile.projects %}
+                <div class="project-card"
+                    style="background-color: #333; padding: 15px; border-radius: 8px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); width: 250px; text-align: center; margin-bottom: 20px;">
+                    <div style="margin-bottom: 15px;">
+                        <strong
+                            style="display: block; color: #ffffff; font-size: 1.2rem; font-weight: bold; margin-bottom: 20px;">{{
+                            project.title }}</strong>
+                        <em style="display: block; color: #ffffff; font-size: 1rem; margin-bottom: 30px;">{{
+                            project.description }}</em>
+                        <a href="{{ project.link }}" target="_blank"
+                            style="text-decoration: none; color: #007bff; font-weight: 600;">Project Link</a>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </section>
+
+
+
+        <!-- Contact Section -->
+        <section class="contact">
+            <h2>Contact Me</h2>
+            <form class="contact-form">
+                <input type="text" placeholder="Your Name" required>
+                <input type="email" placeholder="Your Email" required>
+                <textarea placeholder="Your Message" required></textarea>
+                <button type="submit">Send Message</button>
+            </form>
+        </section>
+
+    </div>
+
+    <!-- Footer -->
+    <footer
+        style="background-color: #1f1f1f; padding: 20px; text-align: center; border-top: 2px solid #444; color: #fffefe; font-family: 'Arial', sans-serif; font-size: 1rem;">
+        <div style="display: flex; justify-content: center; gap: 20px; flex-wrap: wrap;">
+            {% if profile.online_links.linkedin %}
+            <a href="{{ profile.online_links.linkedin }}" target="_blank"
+                style="color: #007bff; text-decoration: none; font-weight: 600; transition: color 0.3s;">LinkedIn</a>
+            {% endif %}
+
+            {% if profile.online_links.github %}
+            <a href="{{ profile.online_links.github }}" target="_blank"
+                style="color: #333; text-decoration: none; font-weight: 600; transition: color 0.3s;">GitHub</a>
+            {% endif %}
+
+            {% if profile.online_links.email %}
+            <a href="mailto:{{ profile.online_links.email }}"
+                style="color: #ff6347; text-decoration: none; font-weight: 600; transition: color 0.3s;">Email</a>
+            {% endif %}
+
+            {% if profile.online_links.phone %}
+            <a href="tel:{{ profile.online_links.phone }}"
+                style="color: #32cd32; text-decoration: none; font-weight: 600; transition: color 0.3s;">Phone</a>
+            {% endif %}
+        </div>
+    </footer>
+
+    <!-- Floating Sidebar -->
+    <div class="sidebar"
+        style="position: fixed; top: 50%; right: 0; transform: translateY(-50%); background-color: #333; padding: 20px; border-radius: 10px 0 0 10px; box-shadow: -2px 2px 10px rgba(0, 0, 0, 0.3);">
+        <button onclick="downloadProfile()"
+            style="padding: 15px 25px; background-color: #007bff; color: #fff; font-size: 1.2rem; border: none; border-radius: 8px; cursor: pointer; transition: background-color 0.3s, transform 0.2s;">
+            Download Profile
+        </button>
+    </div>
+
+    <script>
+        function downloadProfile() {
+            // Clone the document's body to avoid modifying the original DOM
+            const profileBody = document.body.cloneNode(true);
+
+            // Remove the sidebar from the cloned body
+            const sidebar = profileBody.querySelector('.sidebar');
+            if (sidebar) {
+                sidebar.remove();  // Remove the sidebar in the clone
+            }
+
+            // Convert the modified body to HTML and create a downloadable blob
+            const profileHtml = `<!DOCTYPE html>
+            <html lang="en">
+            <head>
+                <meta charset="UTF-8">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                <title>Profile</title>
+            </head>
+            <body>
+                ${profileBody.innerHTML}
+            </body>
+            </html>`;
+
+            const blob = new Blob([profileHtml], { type: 'text/html' });
+            const link = document.createElement('a');
+            link.href = URL.createObjectURL(blob);
+            link.download = 'profile.html';
+            link.click();
+        }
+    </script>
+
+
+
+</body>
+
+</html>

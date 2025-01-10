@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Projects</title>
+    <style>
+        /* Reset and basic styling */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f7fc;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            color: #333;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        label {
+            font-size: 1.1rem;
+            color: #333;
+        }
+
+        textarea,
+        input {
+            padding: 10px;
+            font-size: 1rem;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            width: 100%;
+        }
+
+        button {
+            padding: 10px;
+            background-color: #007bff;
+            color: #fff;
+            font-size: 1.1rem;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        .project-entry {
+            margin-bottom: 15px;
+        }
+
+        .project-entry input,
+        .project-entry textarea {
+            width: calc(100% - 20px);
+        }
+
+        .project-entry label {
+            margin-top: 10px;
+        }
+
+        a {
+            color: #007bff;
+            text-decoration: none;
+            text-align: center;
+            margin-top: 20px;
+            display: block;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        /* Mobile Responsiveness */
+        @media (max-width: 768px) {
+            .container {
+                padding: 15px;
+            }
+
+            h1 {
+                font-size: 2rem;
+            }
+
+            button {
+                font-size: 1rem;
+                padding: 8px;
+            }
+
+            textarea,
+            input {
+                font-size: 1rem;
+            }
+
+            label {
+                font-size: 1rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>Add Projects</h1>
+        <form action="{{ url_for('add_project') }}" method="POST" id="projects-form">
+
+            <!-- First Project Entry -->
+            <div class="project-entry" id="project_1">
+                <label for="project_title_1">Project 1 - Title:</label>
+                <input type="text" name="project_title_1" id="project_title_1" placeholder="Project Title" required>
+
+                <label for="project_description_1">Project 1 - Description:</label>
+                <textarea name="project_description_1" id="project_description_1" placeholder="Brief description of the project" required></textarea>
+
+                <label for="project_link_1">Project 1 - Link:</label>
+                <input type="text" name="project_link_1" id="project_link_1" placeholder="Link to project" required>
+            </div>
+
+            <!-- You can add more project entries dynamically -->
+
+            <button type="button" onclick="addProject()">Add More Projects</button>
+            <button type="submit">Save Projects</button>
+        </form>
+
+        <a href="{{ url_for('profile') }}">Back to Profile</a>
+        <a href="{{ url_for('theme') }}">Select Theme</a>
+    </div>
+
+    <script>
+        let projectCount = 1;
+
+        function addProject() {
+            projectCount++;
+
+            // Create a new project entry div
+            const newProject = document.createElement('div');
+            newProject.classList.add('project-entry');
+            newProject.id = 'project_' + projectCount;
+
+            // Create the Project Title input
+            const projectTitleLabel = document.createElement('label');
+            projectTitleLabel.setAttribute('for', 'project_title_' + projectCount);
+            projectTitleLabel.innerHTML = `Project ${projectCount} - Title:`;
+            const projectTitleInput = document.createElement('input');
+            projectTitleInput.setAttribute('type', 'text');
+            projectTitleInput.setAttribute('name', 'project_title_' + projectCount);
+            projectTitleInput.setAttribute('id', 'project_title_' + projectCount);
+            projectTitleInput.setAttribute('placeholder', 'Project Title');
+            projectTitleInput.required = true;
+
+            // Create the Project Description textarea
+            const projectDescriptionLabel = document.createElement('label');
+            projectDescriptionLabel.setAttribute('for', 'project_description_' + projectCount);
+            projectDescriptionLabel.innerHTML = `Project ${projectCount} - Description:`;
+            const projectDescriptionTextarea = document.createElement('textarea');
+            projectDescriptionTextarea.setAttribute('name', 'project_description_' + projectCount);
+            projectDescriptionTextarea.setAttribute('id', 'project_description_' + projectCount);
+            projectDescriptionTextarea.setAttribute('placeholder', 'Brief description of the project');
+            projectDescriptionTextarea.required = true;
+
+            // Create the Project Link input
+            const projectLinkLabel = document.createElement('label');
+            projectLinkLabel.setAttribute('for', 'project_link_' + projectCount);
+            projectLinkLabel.innerHTML = `Project ${projectCount} - Link:`;
+            const projectLinkInput = document.createElement('input');
+            projectLinkInput.setAttribute('type', 'text');
+            projectLinkInput.setAttribute('name', 'project_link_' + projectCount);
+            projectLinkInput.setAttribute('id', 'project_link_' + projectCount);
+            projectLinkInput.setAttribute('placeholder', 'Link to project');
+            projectLinkInput.required = true;
+
+            // Append all elements to the new project div
+            newProject.appendChild(projectTitleLabel);
+            newProject.appendChild(projectTitleInput);
+            newProject.appendChild(projectDescriptionLabel);
+            newProject.appendChild(projectDescriptionTextarea);
+            newProject.appendChild(projectLinkLabel);
+            newProject.appendChild(projectLinkInput);
+
+            // Append the new project entry to the form
+            document.getElementById('projects-form').insertBefore(newProject, document.querySelector('button[type="button"]'));
+        }
+    </script>
+</body>
+
+</html>
