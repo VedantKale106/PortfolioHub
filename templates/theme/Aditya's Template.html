@@ -387,12 +387,12 @@
     <footer>
         <p class="copyright">&copy; {{ current_year }} {{ profile.name }} | All Rights Reserved</p>
         <div class="links">
-            {% if profile.online_links.linkedin %}
+            {% if profile.contact_info.linkedin %}
                 <a href="{{ profile.online_links.linkedin }}" target="_blank">
                     <i class="fab fa-linkedin"></i> LinkedIn
                 </a>
             {% endif %}
-            {% if profile.online_links.github %}
+            {% if profile.contact_info.github %}
                 <a href="{{ profile.online_links.github }}" target="_blank">
                     <i class="fab fa-github"></i> GitHub
                 </a>

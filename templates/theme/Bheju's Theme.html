@@ -376,22 +376,22 @@
     <footer
         style="background-color: #1f1f1f; padding: 20px; text-align: center; border-top: 2px solid #444; color: #fffefe; font-family: 'Arial', sans-serif; font-size: 1rem;">
         <div style="display: flex; justify-content: center; gap: 20px; flex-wrap: wrap;">
-            {% if profile.online_links.linkedin %}
+            {% if profile.contact_info.linkedin %}
             <a href="{{ profile.online_links.linkedin }}" target="_blank"
                 style="color: #007bff; text-decoration: none; font-weight: 600; transition: color 0.3s;">LinkedIn</a>
             {% endif %}
 
-            {% if profile.online_links.github %}
+            {% if profile.contact_info.github %}
             <a href="{{ profile.online_links.github }}" target="_blank"
                 style="color: #333; text-decoration: none; font-weight: 600; transition: color 0.3s;">GitHub</a>
             {% endif %}
 
-            {% if profile.online_links.email %}
+            {% if profile.contact_info.email %}
             <a href="mailto:{{ profile.online_links.email }}"
                 style="color: #ff6347; text-decoration: none; font-weight: 600; transition: color 0.3s;">Email</a>
             {% endif %}
 
-            {% if profile.online_links.phone %}
+            {% if profile.contact_info.phone %}
             <a href="tel:{{ profile.online_links.phone }}"
                 style="color: #32cd32; text-decoration: none; font-weight: 600; transition: color 0.3s;">Phone</a>
             {% endif %}
