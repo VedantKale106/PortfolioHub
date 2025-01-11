@@ -40,6 +40,15 @@
             color: #4F46E5;
         }
 
+        /* Mobile menu */
+        .mobile-menu {
+            display: none;
+        }
+
+        .mobile-menu.active {
+            display: block;
+        }
+
         /* Images */
         .template-image {
             height: 12rem;
@@ -59,6 +68,36 @@
             color: #4B5563;
             margin-bottom: 1rem;
         }
+
+        @media (max-width: 768px) {
+            .desktop-menu {
+                display: none;
+            }
+            
+            .mobile-menu-button {
+                display: block;
+            }
+
+            .mobile-menu.active {
+                position: absolute;
+                top: 64px;
+                left: 0;
+                right: 0;
+                background: white;
+                padding: 1rem;
+                box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            }
+
+            .mobile-menu a {
+                display: block;
+                padding: 0.75rem 0;
+                border-bottom: 1px solid #e5e7eb;
+            }
+
+            .mobile-menu a:last-child {
+                border-bottom: none;
+            }
+        }
     </style>
 </head>
 <body class="bg-gray-50 min-h-screen">
@@ -66,69 +105,96 @@
     <nav class="bg-white shadow-sm sticky top-0 z-50">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between h-16 items-center">
-                <h1 class="text-2xl font-bold text-indigo-600">Welcome to PortfolioHub</h1>
-                <div class="space-x-6">
+                <h1 class="text-xl sm:text-2xl font-bold text-indigo-600">Welcome to PortfolioHub</h1>
+                
+                <!-- Desktop Menu -->
+                <div class="hidden md:flex space-x-6 desktop-menu">
                     <a href="/home" class="nav-link">Home</a>
                     <a href="/about" class="nav-link">About Us</a>
                     <a href="/contact" class="nav-link">Contact Us</a>
                     <a href="/logout" class="nav-link">Logout</a>
                 </div>
+
+                <!-- Mobile Menu Button -->
+                <button class="md:hidden mobile-menu-button">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                    </svg>
+                </button>
+            </div>
+
+            <!-- Mobile Menu -->
+            <div class="mobile-menu md:hidden">
+                <a href="/home" class="block py-2">Home</a>
+                <a href="/about" class="block py-2">About Us</a>
+                <a href="/contact" class="block py-2">Contact Us</a>
+                <a href="/logout" class="block py-2">Logout</a>
             </div>
         </div>
     </nav>
 
     <!-- Hero Section -->
-    <div class="hero-section text-white py-16 mb-12">
+    <div class="hero-section text-white py-8 sm:py-16 mb-8 sm:mb-12">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-            <h2 class="text-4xl font-bold mb-4">Create Your Dream Website</h2>
-            <p class="text-xl mb-8">Start building your professional website today with our easy-to-use tools</p>
-            <a href="/step1" class="bg-white text-indigo-600 px-8 py-3 rounded-lg font-semibold hover:bg-gray-100">
+            <h2 class="text-2xl sm:text-4xl font-bold mb-4">Create Your Dream Website</h2>
+            <p class="text-lg sm:text-xl mb-6 sm:mb-8">Start building your professional website today with our easy-to-use tools</p>
+            <a href="/step1" class="bg-white text-indigo-600 px-6 sm:px-8 py-2 sm:py-3 rounded-lg font-semibold hover:bg-gray-100 inline-block">
                 Get Started
             </a>
         </div>
     </div>
 
     <!-- Main Content -->
-    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <h3 class="text-2xl font-bold text-gray-800 mb-8 text-center">Featured Templates</h3>
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12">
+        <h3 class="text-xl sm:text-2xl font-bold text-gray-800 mb-6 sm:mb-8 text-center">Featured Templates</h3>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
             <!-- Template 1 -->
             <div class="card bg-white rounded-lg overflow-hidden">
                 <img src="/static/images/aditya.png" alt="Business Template" class="template-image">
-                <div class="p-6">
+                <div class="p-4 sm:p-6">
                     <h2 class="card-title">Aditya's Template</h2>
                     <p class="card-description">Professional template perfect for corporate websites</p>
-                    <a href="/step1" class="main-button text-white px-6 py-2 rounded-md block text-center">Preview Template</a>
+                    <a href="/step1" class="main-button text-white px-4 sm:px-6 py-2 rounded-md block text-center">Preview Template</a>
                 </div>
             </div>
 
             <!-- Template 2 -->
             <div class="card bg-white rounded-lg overflow-hidden">
                 <img src="/static/images/tejas.png" alt="Portfolio Template" class="template-image">
-                <div class="p-6">
+                <div class="p-4 sm:p-6">
                     <h2 class="card-title">Tejas's Template</h2>
                     <p class="card-description">Showcase your work with this elegant portfolio design</p>
-                    <a href="#" class="main-button text-white px-6 py-2 rounded-md block text-center">Preview Template</a>
+                    <a href="#" class="main-button text-white px-4 sm:px-6 py-2 rounded-md block text-center">Preview Template</a>
                 </div>
             </div>
 
             <!-- Template 3 -->
             <div class="card bg-white rounded-lg overflow-hidden">
                 <img src="/static/images/vedant.png" alt="E-commerce Template" class="template-image">
-                <div class="p-6">
+                <div class="p-4 sm:p-6">
                     <h2 class="card-title">Vedant's Template</h2>
                     <p class="card-description">Showcase your Portfolio with our Neon template</p>
-                    <a href="#" class="main-button text-white px-6 py-2 rounded-md block text-center">Preview Template</a>
+                    <a href="#" class="main-button text-white px-4 sm:px-6 py-2 rounded-md block text-center">Preview Template</a>
                 </div>
             </div>
         </div>
     </main>
 
     <!-- Footer -->
-    <footer class="bg-white border-t mt-16 py-8">
+    <footer class="bg-white border-t mt-8 sm:mt-16 py-6 sm:py-8">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-gray-600">
             <p>&copy; 2025 PortfolioHub. All rights reserved.</p>
         </div>
     </footer>
+
+    <script>
+        // Mobile menu toggle
+        const menuButton = document.querySelector('.mobile-menu-button');
+        const mobileMenu = document.querySelector('.mobile-menu');
+        
+        menuButton.addEventListener('click', () => {
+            mobileMenu.classList.toggle('active');
+        });
+    </script>
 </body>
 </html>
