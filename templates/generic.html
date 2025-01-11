@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ profile.name }}</title>
+
+
+
+
+    <!-- Hey fellow developers! 👋
+
+First off, thank you for choosing to customize your template! 🙌 We're excited to see what you'll come up with. Feel free to take this design and make it your own – tweak it, style it, and add your unique touch. 
+
+Once you're done, save it as an HTML file with your name or any cool name you choose. Make sure to store it in the **templates/theme** folder.
+
+If the admin loves your design, it could be featured on our website! 🎉 How awesome is that?
+
+Here are a few things to keep in mind:
+- **Write CSS in Body tag itself** 💀: For page to download with css, write the style tag in body tag itself
+- **Floating Sidebar** 👍: In the end of your code add the code of floating sidebar given at the bottom, which will give option to download the html page
+- **Mobile Responsiveness** 📱: We want this design to look great on all devices! So, make sure it's responsive.
+- **Content** 📝: Add any extra sections, content, or features you think will enhance the experience. Be creative!
+- **Customization** 🎨: It's your template now, so feel free to change colors, fonts, and even layout. Just make it yours!
+- **Contact us** 🤖: Don't add backend logic or any script, just add the section 
+
+Looking forward to seeing what you create. Good luck and have fun with it! 😎
+
+Cheers, 
+PortfolioHub Team -->
+
+
+
+    <!-- 
+Hey there! 😎 Here's how you can use the data to fill in the sections dynamically:
+
+This is jinja syntax : {{ profile.name }} (If you want to take the name from the profile)
+
+1. **profile.name** - Put your name here! 🧑‍💻 It's the name that will show up on your page.
+   
+2. **profile.about** - This is where you can talk about yourself, your journey, your interests, or whatever you feel people should know about you. 🚀
+
+3. **profile.skills** - Use this to list your awesome skills! It’s an array, so just add each skill inside the list. Something like:
+   - Python
+   - HTML/CSS
+   - Machine Learning 🧠
+
+4. **profile.projects** - This section will showcase your cool projects. For each project, you’ll include:
+   - **title**: The name of your project.
+   - **description**: A short and sweet summary of what the project is about.
+   - **link**: A link to your project (GitHub, live demo, or anything else).
+
+   Example:
+   - **Project Title**: "AI Chatbot"
+   - **Description**: "A chatbot built using NLP techniques."
+   - **Link**: "https://github.com/username/project"
+
+5. **profile.education** - List your academic background. If you're in college, you can include:
+   - **course**: The name of your course (e.g., Computer Science).
+   - **college**: The name of your college.
+   - **year**: The year you're currently in, or your graduation year.
+
+   Example:
+   - **Course**: B.Tech in Computer Science
+   - **College**: XYZ University
+   - **Year**: 3rd Year
+
+6. **profile.contact_info** - Put your contact info in this list! Include your:
+   - **phone**: Your phone number (if you want to share it).
+   - **linkedin**: Your LinkedIn profile link.
+   - **github**: Your GitHub profile link (a must for devs!).
+   - **email**: Your email address.
+
+   Example:
+   - **Phone**: "+123456789"
+   - **LinkedIn**: "https://linkedin.com/in/username"
+   - **GitHub**: "https://github.com/username"
+   - **Email**: "your.email@example.com"
+-->
+
+
+
+
+
+
+
+</head>
+
+<body>
+
+    <!-- Write the CSS in The body itself -->
+
+
+    <!-- Header Section -->
+    <header>
+        <h1>{{ profile.name }}</h1>
+    </header>
+
+    <!-- Portfolio Site Header -->
+    <div class="portfolio-header">
+        <h2>Welcome to My Portfolio</h2>
+        <p>Explore my work and skills!</p>
+    </div>
+
+    <!-- About Me Section -->
+    <section id="about-me">
+        <h2>About Me</h2>
+        <p>{{ profile.about }}</p>
+    </section>
+
+    <!-- Skills Section -->
+    <section id="skills">
+        <h2>Skills</h2>
+        <ul>
+            <!-- Loop through skills dynamically -->
+            {% for skill in profile.skills %}
+            <li>{{ skill }}</li>
+            {% endfor %}
+        </ul>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects">
+        <h2>Projects</h2>
+        <ul>
+            <!-- Loop through projects dynamically -->
+            {% for project in profile.projects %}
+            <li>
+                <strong>{{ project.title }}</strong><br>
+                <em>{{ project.description }}</em><br>
+                <a href="{{ project.link }}" target="_blank">Project Link</a>
+            </li>
+            {% endfor %}
+        </ul>
+    </section>
+
+    <!-- Education Section -->
+    <section id="education">
+        <h2>Education</h2>
+        <p><strong>Course:</strong> {{ profile.education.course }}</p>
+        <p><strong>College:</strong> {{ profile.education.college }}</p>
+        <p><strong>Year:</strong> {{ profile.education.year }}</p>
+    </section>
+
+    <!-- Contact Us Section -->
+    <section id="contact-us">
+        <h2>Contact Us</h2>
+        <form action="#" method="post">
+            <input type="text" name="name" placeholder="Your Name" required />
+            <input type="email" name="email" placeholder="Your Email" required />
+            <textarea name="message" rows="4" placeholder="Your Message" required></textarea>
+            <button type="submit">Send Message</button>
+        </form>
+    </section>
+
+    <!-- Footer Section -->
+    <footer>
+        <p>&copy; {{ current_year }} {{ profile.name }} | All Rights Reserved</p>
+        <div class="links">
+            <!-- Phone Link -->
+            {% if profile.contact_info.linkedin %}
+            <a href="{{ profile.contact_info.phone }}" target="_blank">Phone</a>
+            {% endif %}
+            <!-- Email Link -->
+            {% if profile.contact_info.linkedin %}
+            <a href="{{ profile.contact_info.email }}" target="_blank">Email</a>
+            {% endif %}
+            <!-- LinkedIn Link -->
+            {% if profile.contact_info.linkedin %}
+            <a href="{{ profile.contact_info.linkedin }}" target="_blank">LinkedIn</a>
+            {% endif %}
+            <!-- GitHub Link -->
+            {% if profile.contact_info.github %}
+            <a href="{{ profile.contact_info.github }}" target="_blank">GitHub</a>
+            {% endif %}
+        </div>
+    </footer>
+
+    <!-- Floating Sidebar, add this to the ending of your code, add the script too-->
+    <div class="sidebar"
+        style="position: fixed; top: 50%; right: 0; transform: translateY(-50%); background-color: #333; padding: 20px; border-radius: 10px 0 0 10px; box-shadow: -2px 2px 10px rgba(0, 0, 0, 0.3);">
+        <button onclick="downloadProfile()"
+            style="padding: 15px 25px; background-color: #007bff; color: #fff; font-size: 1.2rem; border: none; border-radius: 8px; cursor: pointer; transition: background-color 0.3s, transform 0.2s;">
+            Download Profile
+        </button>
+    </div>
+
+    <script>
+        function downloadProfile() {
+            // Clone the document's body to avoid modifying the original DOM
+            const profileBody = document.body.cloneNode(true);
+
+            // Remove the sidebar from the cloned body
+            const sidebar = profileBody.querySelector('.sidebar');
+            if (sidebar) {
+                sidebar.remove();  // Remove the sidebar in the clone
+            }
+
+            // Convert the modified body to HTML and create a downloadable blob
+            const profileHtml = `<!DOCTYPE html>
+            <html lang="en">
+            <head>
+                <meta charset="UTF-8">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                <title>Profile</title>
+            </head>
+            <body>
+                ${profileBody.innerHTML}
+            </body>
+            </html>`;
+
+            const blob = new Blob([profileHtml], { type: 'text/html' });
+            const link = document.createElement('a');
+            link.href = URL.createObjectURL(blob);
+            link.download = 'profile.html';
+            link.click();
+        }
+    </script>
+</body>
+
+</html>

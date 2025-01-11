@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Step 5</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
+    <style>
+        .theme-option {
+            transition: transform 0.2s ease-in-out;
+        }
+
+        .theme-option:hover {
+            transform: scale(1.05);
+        }
+    </style>
+</head>
+<body class="bg-gray-50 min-h-screen py-8 px-4">
+    <div class="max-w-2xl mx-auto bg-white rounded-lg shadow-md p-6 md:p-8">
+        <!-- Progress Bar -->
+        <div class="mb-8">
+            <div class="h-2 bg-gray-200 rounded-full">
+                <div class="h-2 bg-indigo-600 rounded-full w-full"></div>
+            </div>
+            <div class="mt-2 text-sm text-gray-600 text-center">Step 5 of 5</div>
+        </div>
+
+        <!-- Form Header -->
+        <div class="text-center mb-8">
+            <h1 class="text-3xl font-bold text-gray-900 mb-2">Choose Your Theme</h1>
+            <p class="text-gray-600">Select a theme to personalize your portfolio's look and feel.</p>
+        </div>
+
+        <!-- Theme Selection Form -->
+        <form action="/step5" method="post">
+            <div class="mb-6">
+                <label for="theme" class="block text-gray-700 font-medium mb-2">Select Theme:</label>
+                <select 
+                    name="theme" 
+                    id="theme" 
+                    required
+                    class="form-input w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-indigo-500 focus:border-indigo-500"
+                >
+                    {% for theme in themes %}
+                        <option value="{{ theme }}">{{ theme.replace('.html', '').capitalize() }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <!-- Navigation Buttons -->
+            <div class="flex justify-between">
+                <!-- Previous Step Button -->
+                <a 
+                    href="/step4" 
+                    class="btn btn-secondary bg-gray-500 hover:bg-gray-600 text-white px-4 py-2 rounded-md"
+                >
+                    ← Previous Step
+                </a>
+
+                <!-- Submit Button -->
+                <button 
+                    type="submit" 
+                    class="btn btn-primary bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-2 rounded-md"
+                >
+                    Preview →
+                </button>
+            </div>
+        </form>
+    </div>
+</body>
+</html>

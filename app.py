@@ -23,14 +23,13 @@ def register():
         name = request.form["name"]
         email = request.form["email"]
         password = generate_password_hash(request.form["password"])
-        
-        # Check if email already exists
+
         if mongo.db.users.find_one({"email": email}):
             return "Email already exists! Try logging in."
 
         mongo.db.users.insert_one({"name": name, "email": email, "password": password})
         return redirect(url_for("index"))
-    
+
     return render_template("register.html")  # Register page
 
 @app.route("/login", methods=["POST"])
@@ -38,11 +37,11 @@ def login():
     email = request.form["email"]
     password = request.form["password"]
     user = mongo.db.users.find_one({"email": email})
-    
+
     if user and check_password_hash(user["password"], password):
         session["user_id"] = str(user["_id"])
         return redirect(url_for("home"))
-    
+
     return "Invalid credentials! Please try again."
 
 @app.route("/logout")
@@ -54,102 +53,124 @@ def logout():
 def home():
     if "user_id" not in session:
         return redirect(url_for("index"))
-    
-    return render_template("home.html")  # Portfolio templates
+    return render_template("home.html")  # Home page with "Make Your Website" button
 
-@app.route("/profile", methods=["GET", "POST"])
-def profile():
+@app.route("/step1", methods=["GET", "POST"])
+def step1():
     if "user_id" not in session:
-        return redirect(url_for("index"))
-    
+        return redirect (url_for("index"))
+
     if request.method == "POST":
-        # Collecting the form data
-        about = request.form["about"]
         name = request.form["name"]
-        
-        # Skills - now stored as a list
-        skills = request.form.getlist("skills")  # 'getlist' allows you to capture multiple inputs
-        
-        # Contact information
-        online_links = {
-            "linkedin": request.form.get("linkedin", ""),
-            "github": request.form.get("github", ""),
-            "email": request.form.get("email", ""),
-            "phone": request.form.get("phone", "")
-        }
+        about = request.form["about"]
+        skills = request.form.getlist("skills")
+        skills = [skill.strip() for skill in skills if skill.strip()]
 
-        # Education details
-        education = {
-            "course": request.form.get("course", ""),
-            "college": request.form.get("college", ""),
-            "year": request.form.get("year", "")
-        }
-
-        # Collecting project details dynamically
-        projects = []
-    project_index = 1
-    while True:
-        # Check if any field for the current project exists
-        project_title = request.form.get(f"project_title_{project_index}")
-        project_description = request.form.get(f"project_description_{project_index}")
-        project_link = request.form.get(f"project_link_{project_index}")
-
-        # Break if no project fields are present
-        if not project_title and not project_description and not project_link:
-            break
-
-        # Add the project data to the list
-        project = {
-            "title": project_title,
-            "description": project_description,
-            "link": project_link
-        }
-        projects.append(project)
-        
-        # Move to the next project
-        project_index += 1
-
-        
-        # Update or insert the profile data in MongoDB
         mongo.db.profiles.update_one(
-    {"user_id": session["user_id"]},
-    {
-        "$set": {
-            "name": name,  # Add the user's name here
-            "about": about,
-            "skills": skills,
-            "online_links": online_links,
-            "education": education,
-            "projects": projects
-        }
-    },
-    upsert=True
-)
+            {"user_id": session["user_id"]},
+            {"$set": {"name": name, "about": about, "skills": skills}},
+            upsert=True
+        )
+        return redirect(url_for("step2"))
 
-
-        return redirect(url_for("preview"))
-
-    # Fetch existing profile data or return an empty dictionary
     profile = mongo.db.profiles.find_one({"user_id": session["user_id"]}) or {}
-    return render_template("profile.html", profile=profile)  # Render the profile editor
-     
+    return render_template("step1.html", profile=profile)  
 
-
-@app.route("/theme", methods=["GET", "POST"])
-def theme():
+@app.route("/step2", methods=["GET", "POST"])
+def step2():
     if "user_id" not in session:
         return redirect(url_for("index"))
-    
+
     if request.method == "POST":
-        theme = request.form["theme"]
+        contact_info = {
+            "phone": request.form["phone"],
+            "email": request.form["email"],
+            "linkedin": request.form["linkedin"],
+            "github": request.form["github"]
+        }
+
+        mongo.db.profiles.update_one(
+            {"user_id": session["user_id"]},
+            {"$set": {"contact_info": contact_info}},
+            upsert=True
+        )
+        return redirect(url_for("step3"))
+
+    profile = mongo.db.profiles.find_one({"user_id": session["user_id"]}) or {}
+    return render_template("step2.html", profile=profile)  # Contact Info form
+
+@app.route("/step3", methods=["GET", "POST"])
+def step3():
+    if "user_id" not in session:
+        return redirect(url_for("index"))
+
+    if request.method == "POST":
+        education = {
+            "course": request.form["course"],
+            "college": request.form["college"],
+            "year": request.form["year"]
+        }
+
+        mongo.db.profiles.update_one(
+            {"user_id": session["user_id"]},
+            {"$set": {"education": education}},
+            upsert=True
+        )
+        return redirect(url_for("step4"))
+
+    profile = mongo.db.profiles.find_one({"user_id": session["user_id"]}) or {}
+    return render_template("step3.html", profile=profile)  # Education form
+
+@app.route("/step4", methods=["GET", "POST"])
+def step4():
+    if "user_id" not in session:
+        return redirect(url_for("index"))
+
+    if request.method == "POST":
+        projects = []
+        project_index = 1
+        while True:
+            title = request.form.get(f"project_title_{project_index}")
+            description = request.form.get(f"project_description_{project_index}")
+            link = request.form.get(f"project_link_{project_index}")
+
+            if not title and not description and not link:
+                break
+
+            projects.append({"title": title, "description": description, "link": link})
+            project_index += 1
+
+        mongo.db.profiles.update_one(
+            {"user_id": session["user_id"]},
+            {"$set": {"projects": projects}},
+            upsert=True
+        )
+        return redirect(url_for("step5"))
+
+    profile = mongo.db.profiles.find_one({"user_id": session["user_id"]}) or {}
+    return render_template("step4.html", profile=profile)  # Projects form
+
+@app.route("/step5", methods=["GET", "POST"])
+def step5():
+    if "user_id" not in session:
+        return redirect(url_for("index"))
+
+    theme_folder = os.path.join(app.root_path, "templates/theme")  # Path to the themes folder
+    themes = [f for f in os.listdir(theme_folder) if f.endswith(".html")]  # Get all HTML files
+
+    if request.method == "POST":
+        theme = request.form.get("theme")  # Get selected theme
+
+        # Update theme in the database
         mongo.db.profiles.update_one(
             {"user_id": session["user_id"]},
             {"$set": {"theme": theme}},
             upsert=True
         )
+
         return redirect(url_for("preview"))
 
-    return render_template("theme.html")  # Theme selection page
+    return render_template("step5.html", themes=themes) 
 
 
 @app.route("/preview")
@@ -159,37 +180,25 @@ def preview():
     
     profile = mongo.db.profiles.find_one({"user_id": session["user_id"]})
     if not profile:
-        return redirect(url_for("profile"))
-    
+        return redirect(url_for("step1"))  # Redirect to step 1 if profile doesn't exist
+
     # Dynamically load the selected theme
-    theme = profile.get("theme", "theme1")  # Default to 'theme1'
-    template_name = f"portfolio_template{theme[-1]}.html"  # Map 'theme1', 'theme2', etc.
+    theme = profile.get("theme", "Aditya's Template.html")  # Default to 'theme1'
+    theme_path = f"theme/{theme}"  # Include the 'theme/' folder in the path
 
-    return render_template(template_name, profile=profile)  # Load the selected theme
+    return render_template(theme_path, profile=profile)  # Render the selected theme
 
-@app.route("/download")
-def download():
+@app.route("/about")
+def about():
     if "user_id" not in session:
         return redirect(url_for("index"))
-    
-    profile = mongo.db.profiles.find_one({"user_id": session["user_id"]})
-    if not profile:
-        return redirect(url_for("profile"))
+    return render_template("about.html")
 
-    # Dynamically load the selected theme
-    theme = profile.get("theme", "theme1")  # Default to 'theme1'
-    template_name = f"portfolio_template{theme[-1]}.html"
-
-    # Generate the portfolio as an HTML file
-    html_content = render_template(template_name, profile=profile)
-    file_path = f"temp/{session['user_id']}_portfolio.html"
-
-    # Save the HTML file
-    os.makedirs("temp", exist_ok=True)
-    with open(file_path, "w") as f:
-        f.write(html_content)
-    
-    return send_file(file_path, as_attachment=True)
+@app.route("/contact")
+def contact():
+    if "user_id" not in session:
+        return redirect(url_for("index"))
+    return render_template("contact.html")
 
 
 if __name__ == "__main__":

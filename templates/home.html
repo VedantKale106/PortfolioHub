@@ -4,153 +4,131 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Home</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
     <style>
-        /* Reset and basic styling */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
+        /* Base styles */
+        .card {
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: box-shadow 0.3s ease;
         }
 
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #add8e6; /* Light blue background */
-            color: #333;
-            line-height: 1.6;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            padding: 0 20px;
+        .card:hover {
+            box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
         }
 
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            text-align: center;
-            background-color: #fff;
-            padding: 40px;
-            border-radius: 10px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        /* Hero section */
+        .hero-section {
+            background: linear-gradient(to right, #4F46E5, #7C3AED);
+        }
+
+        /* Buttons */
+        .main-button {
+            background: linear-gradient(to right, #4F46E5, #7C3AED);
+            transition: transform 0.2s;
+        }
+
+        .main-button:hover {
+            transform: translateY(-2px);
+        }
+
+        /* Navigation */
+        .nav-link {
+            transition: color 0.2s ease;
+        }
+
+        .nav-link:hover {
+            color: #4F46E5;
+        }
+
+        /* Images */
+        .template-image {
+            height: 12rem;
             width: 100%;
-            max-width: 800px;
+            object-fit: cover;
         }
 
-        h1 {
-            font-size: 3rem;
-            color: #333;
-            margin-bottom: 20px;
-            font-weight: bold;
+        /* Card content */
+        .card-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: #1F2937;
+            margin-bottom: 0.5rem;
         }
 
-        h2 {
-            font-size: 2rem;
-            color: #555;
-            margin-bottom: 30px;
-        }
-
-        /* Templates section */
-        .templates {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 20px;
-            margin-bottom: 30px;
-        }
-
-        .templates label {
-            display: block;
-            position: relative;
-            cursor: pointer;
-            width: 100%;
-            max-width: 350px;
-            height: 400px; /* Maintain consistent square size */
-            border-radius: 8px;
-            overflow: hidden;
-            background-size: cover;
-            background-position: center;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
-
-        .templates label:hover {
-            transform: scale(1.05);
-            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
-        }
-
-        /* Multi-select Section */
-        .templates input[type="checkbox"] {
-            display: none;
-        }
-
-        .templates input[type="checkbox"]:checked + label {
-            border: 3px solid #007bff;
-        }
-
-        /* Button Link Styling */
-        a {
-            display: inline-block;
-            padding: 12px 25px;
-            background-color: #007bff;
-            color: #fff;
-            font-size: 1.1rem;
-            text-decoration: none;
-            border-radius: 5px;
-            transition: background-color 0.3s ease;
-        }
-
-        a:hover {
-            background-color: #0056b3;
-        }
-
-        /* Mobile Responsiveness */
-        @media (max-width: 768px) {
-            h1 {
-                font-size: 2.5rem;
-            }
-
-            h2 {
-                font-size: 1.5rem;
-            }
-
-            .templates {
-                flex-direction: column;
-                align-items: center;
-            }
-
-            .templates img {
-                max-width: 90%;
-            }
-
-            a {
-                font-size: 1rem;
-                padding: 8px 16px;
-            }
+        .card-description {
+            color: #4B5563;
+            margin-bottom: 1rem;
         }
     </style>
 </head>
-<body>
-    <div class="container">
-        <h1>Welcome to Portfolio Generator</h1>
-        <h2>Select Portfolio Templates</h2>
-
-        <div class="templates">
-            <!-- Template 1 Selection with Background Image -->
-            <input type="checkbox" id="template1" name="template" value="template1">
-            <label for="template1">
-                <img src="{{ url_for('static', filename='images/template1.jpg') }}" alt="Template 1" style="width: 300px; height: 200px;">
-            </label>
-
-            <!-- Template 2 Selection with Background Image -->
-            <input type="checkbox" id="template2" name="template" value="template2">
-            <label for="template2">
-                <img src="{{ url_for('static', filename='images/template2.jpg') }}" alt="Template 2" style="width: 300px; height: 200px;">
-            </label>
-
-            <!-- Add more templates as needed -->
+<body class="bg-gray-50 min-h-screen">
+    <!-- Navigation -->
+    <nav class="bg-white shadow-sm sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16 items-center">
+                <h1 class="text-2xl font-bold text-indigo-600">Welcome to PortfolioHub</h1>
+                <div class="space-x-6">
+                    <a href="/home" class="nav-link">Home</a>
+                    <a href="/about" class="nav-link">About Us</a>
+                    <a href="/contact" class="nav-link">Contact Us</a>
+                    <a href="/logout" class="nav-link">Logout</a>
+                </div>
+            </div>
         </div>
+    </nav>
 
-        <a href="{{ url_for('profile') }}">Create Your Profile</a>
+    <!-- Hero Section -->
+    <div class="hero-section text-white py-16 mb-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <h2 class="text-4xl font-bold mb-4">Create Your Dream Website</h2>
+            <p class="text-xl mb-8">Start building your professional website today with our easy-to-use tools</p>
+            <a href="/step1" class="bg-white text-indigo-600 px-8 py-3 rounded-lg font-semibold hover:bg-gray-100">
+                Get Started
+            </a>
+        </div>
     </div>
+
+    <!-- Main Content -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        <h3 class="text-2xl font-bold text-gray-800 mb-8 text-center">Featured Templates</h3>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <!-- Template 1 -->
+            <div class="card bg-white rounded-lg overflow-hidden">
+                <img src="/static/images/aditya.png" alt="Business Template" class="template-image">
+                <div class="p-6">
+                    <h2 class="card-title">Aditya's Template</h2>
+                    <p class="card-description">Professional template perfect for corporate websites</p>
+                    <a href="/step1" class="main-button text-white px-6 py-2 rounded-md block text-center">Preview Template</a>
+                </div>
+            </div>
+
+            <!-- Template 2 -->
+            <div class="card bg-white rounded-lg overflow-hidden">
+                <img src="/static/images/tejas.png" alt="Portfolio Template" class="template-image">
+                <div class="p-6">
+                    <h2 class="card-title">Tejas's Template</h2>
+                    <p class="card-description">Showcase your work with this elegant portfolio design</p>
+                    <a href="#" class="main-button text-white px-6 py-2 rounded-md block text-center">Preview Template</a>
+                </div>
+            </div>
+
+            <!-- Template 3 -->
+            <div class="card bg-white rounded-lg overflow-hidden">
+                <img src="/static/images/vedant.png" alt="E-commerce Template" class="template-image">
+                <div class="p-6">
+                    <h2 class="card-title">Vedant's Template</h2>
+                    <p class="card-description">Showcase your Portfolio with our Neon template</p>
+                    <a href="#" class="main-button text-white px-6 py-2 rounded-md block text-center">Preview Template</a>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-white border-t mt-16 py-8">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-gray-600">
+            <p>&copy; 2025 PortfolioHub. All rights reserved.</p>
+        </div>
+    </footer>
 </body>
 </html>
