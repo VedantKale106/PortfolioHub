@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ profile.name }} - Security Expert</title>
+</head>
+<body>
+    <style>
+        /* CSS Reset and Global Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Courier New', Courier, monospace;
+        }
+
+        body {
+            background-color: #0a0a0a;
+            color: #00ff00;
+            line-height: 1.6;
+        }
+
+        /* Header Styles */
+        .cyber-header {
+            position: relative;
+            background: linear-gradient(45deg, #000000, #001a00);
+            padding: 2rem;
+            border-bottom: 2px solid #00ff00;
+            overflow: hidden;
+        }
+
+        .matrix-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0.1;
+            pointer-events: none;
+        }
+
+        .header-content {
+            position: relative;
+            z-index: 1;
+            max-width: 1200px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .header-title {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            color: #00b7fa;
+            text-shadow: 0 0 10px #6767ff;
+        }
+
+        .header-subtitle {
+            font-size: 1.2rem;
+            color: #00cc00;
+        }
+
+        /* Section Styles */
+        section {
+            padding: 3rem 1rem;
+            max-width: 1200px;  
+            margin: 0 auto;
+            border-bottom: 1px solid #003300;
+        }
+
+        h2 {
+    color: #6767ff;
+    margin-bottom: 1.5rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    text-shadow: 0 0 10px rgba(25, 25, 200, 0.7), 0 0 20px rgba(25, 25, 200, 0.7), 0 0 30px rgba(25, 25, 200, 0.7);
+}
+
+
+        /* Skills Section */
+        #skills ul {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1rem;
+            list-style: none;
+        }
+
+        #skills li {
+            background: rgba(0, 51, 0, 0.3);
+            padding: 1rem;
+            border: 1px solid #00ff00;
+            border-radius: 4px;
+        }
+
+        /* Projects Section */
+        #projects ul {
+            list-style: none;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        #projects li {
+            background: rgba(0, 51, 0, 0.2);
+            padding: 1.5rem;
+            border: 1px solid #00ff00;
+            border-radius: 4px;
+        }
+
+        #projects a {
+            color: #00ff00;
+            text-decoration: none;
+            display: inline-block;
+            margin-top: 1rem;
+            border: 1px solid #00ff00;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+        }
+
+        #projects a:hover {
+            background: #00ff00;
+            color: #000;
+        }
+
+        /* Contact Form */
+        #contact-us form {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        #contact-us input,
+        #contact-us textarea {
+            background: rgba(0, 51, 0, 0.2);
+            border: 1px solid #00ff00;
+            padding: 0.8rem;
+            color: #00ff00;
+            border-radius: 4px;
+        }
+
+        #contact-us button {
+            background: transparent;
+            color: #00ff00;
+            border: 1px solid #00ff00;
+            padding: 1rem;
+            cursor: pointer;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            transition: all 0.3s ease;
+        }
+
+        #contact-us button:hover {
+            background: #00ff00;
+            color: #000;
+        }
+
+        /* Footer */
+        footer {
+            padding: 2rem;
+            text-align: center;
+            background: rgba(0, 51, 0, 0.2);
+        }
+
+        .links {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .links a {
+            color: #6767ff;
+            text-decoration: none;
+        }
+
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            .header-title {
+                font-size: 2rem;
+            }
+
+            .header-subtitle {
+                font-size: 1rem;
+            }
+
+            section {
+                padding: 2rem 1rem;
+            }
+
+            #projects ul {
+                grid-template-columns: 1fr;
+            }
+
+            #skills ul {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+
+    <header class="cyber-header">
+        <canvas class="matrix-bg" id="matrixCanvas"></canvas>
+        <div class="header-content">
+            <h1 class="header-title">{{ profile.name }}</h1>
+            <p class="header-subtitle">Cybersecurity Professional</p>
+        </div>
+    </header>
+
+    <section id="about-me">
+        <h2>Mission Brief</h2>
+        <p>{{ profile.about }}</p>
+    </section>
+
+    <section id="skills">
+        <h2>Security Arsenal</h2>
+        <ul>
+            {% for skill in profile.skills %}
+            <li>{{ skill }}</li>
+            {% endfor %}
+        </ul>
+    </section>
+
+    <section id="projects">
+        <h2>Security Operations</h2>
+        <ul>
+            {% for project in profile.projects %}
+            <li>
+                <strong>{{ project.title }}</strong><br>
+                <em>{{ project.description }}</em><br>
+                <a href="{{ project.link }}" target="_blank">Access Project</a>
+            </li>
+            {% endfor %}
+        </ul>
+    </section>
+
+    <section id="education">
+        <h2>Training Records</h2>
+        <p><strong>Program:</strong> {{ profile.education.course }}</p>
+        <p><strong>Institution:</strong> {{ profile.education.college }}</p>
+        <p><strong>Classification:</strong> {{ profile.education.year }}</p>
+    </section>
+
+    <section id="contact-us">
+        <h2>Secure Communication Channel</h2>
+        <form action="#" method="post">
+            <input type="text" name="name" placeholder="Codename" required />
+            <input type="email" name="email" placeholder="Secure Email" required />
+            <textarea name="message" rows="4" placeholder="Encrypted Message" required></textarea>
+            <button type="submit">Transmit Message</button>
+        </form>
+    </section>
+
+    <footer>
+        <p>&copy; {{ current_year }} {{ profile.name }} | All Rights Reserved</p>
+        <div class="links">
+            {% if profile.contact_info.phone %}
+            <a href="tel:{{ profile.contact_info.phone }}" target="_blank">Secure Line</a>
+            {% endif %}
+            {% if profile.contact_info.email %}
+            <a href="mailto:{{ profile.contact_info.email }}" target="_blank">Encrypted Mail</a>
+            {% endif %}
+            {% if profile.contact_info.linkedin %}
+            <a href="{{ profile.contact_info.linkedin }}" target="_blank">LinkedIn</a>
+            {% endif %}
+            {% if profile.contact_info.github %}
+            <a href="{{ profile.contact_info.github }}" target="_blank">GitHub</a>
+            {% endif %}
+        </div>
+    </footer>
+
+    <div class="sidebar" style="position: fixed; top: 50%; right: 0; transform: translateY(-50%); background-color: #001a00; padding: 20px; border-radius: 10px 0 0 10px; box-shadow: -2px 2px 10px rgba(0, 255, 0, 0.1);">
+        <button onclick="downloadProfile()" style="padding: 15px 25px; background-color: transparent; color: #00ff00; font-size: 1.2rem; border: 1px solid #00ff00; border-radius: 8px; cursor: pointer; transition: all 0.3s ease;">
+            Download Profile
+        </button>
+    </div>
+
+    <script>
+        // Matrix rain effect
+        const canvas = document.getElementById('matrixCanvas');
+        const ctx = canvas.getContext('2d');
+
+        // Set canvas size
+        function resizeCanvas() {
+            canvas.width = canvas.parentElement.offsetWidth;
+            canvas.height = canvas.parentElement.offsetHeight;
+        }
+        resizeCanvas();
+        window.addEventListener('resize', resizeCanvas);
+
+        // Matrix characters
+        const characters = "01";
+        const fontSize = 14;
+        const columns = canvas.width/fontSize;
+        const drops = [];
+
+        // Initialize drops
+        for(let x = 0; x < columns; x++) {
+            drops[x] = 1;
+        }
+
+        function draw() {
+            ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            
+            ctx.fillStyle = '#00ff00';
+            ctx.font = fontSize + 'px monospace';
+
+            for(let i = 0; i < drops.length; i++) {
+                const text = characters.charAt(Math.floor(Math.random() * characters.length));
+                ctx.fillText(text, i*fontSize, drops[i]*fontSize);
+                
+                if(drops[i]*fontSize > canvas.height && Math.random() > 0.975)
+                    drops[i] = 0;
+                
+                drops[i]++;
+            }
+        }
+
+        setInterval(draw, 35);
+
+        // Download profile function
+        function downloadProfile() {
+            const profileBody = document.body.cloneNode(true);
+            const sidebar = profileBody.querySelector('.sidebar');
+            if (sidebar) {
+                sidebar.remove();
+            }
+
+            const profileHtml = `<!DOCTYPE html>
+            <html lang="en">
+            <head>
+                <meta charset="UTF-8">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                <title>Profile</title>
+            </head>
+            <body>
+                ${profileBody.innerHTML}
+            </body>
+            </html>`;
+
+            const blob = new Blob([profileHtml], { type: 'text/html' });
+            const link = document.createElement('a');
+            link.href = URL.createObjectURL(blob);
+            link.download = 'profile.html';
+            link.click();
+        }
+    </script>
+</body>
+</html>

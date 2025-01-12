@@ -1,10 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Register</title>
+    <title>Login</title>
     <style>
+        /* Reset and basic styling */
         * {
             margin: 0;
             padding: 0;
@@ -38,6 +40,7 @@
                 transform: translateY(0);
                 opacity: 1;
             }
+
             from {
                 transform: translateY(20px);
                 opacity: 0;
@@ -90,10 +93,6 @@
             animation-delay: 0.4s;
         }
 
-        .input-group:nth-child(3) input {
-            animation-delay: 0.6s;
-        }
-
         @keyframes fadeIn {
             to {
                 opacity: 1;
@@ -112,7 +111,7 @@
             transition: transform 0.3s ease, box-shadow 0.3s ease;
             font-weight: 600;
             margin-top: 10px;
-            animation: fadeIn 0.6s ease forwards 0.8s;
+            animation: fadeIn 0.6s ease forwards 0.6s;
             opacity: 0;
         }
 
@@ -125,48 +124,24 @@
             transform: translateY(0);
         }
 
-        .login-link {
+        .signup-link {
             text-align: center;
             margin-top: 25px;
             font-size: 0.95rem;
             color: #666;
-            animation: fadeIn 0.6s ease forwards 1s;
+            animation: fadeIn 0.6s ease forwards 0.8s;
             opacity: 0;
         }
 
-        .login-link a {
+        .signup-link a {
             color: #667eea;
             text-decoration: none;
             font-weight: 600;
             transition: color 0.3s ease;
         }
 
-        .login-link a:hover {
+        .signup-link a:hover {
             color: #764ba2;
-        }
-
-        /* Password strength indicator */
-        .password-strength {
-            height: 4px;
-            background: #e0e0e0;
-            margin-top: 5px;
-            border-radius: 2px;
-            transition: all 0.3s ease;
-        }
-
-        .password-strength[data-strength="weak"] {
-            background: #ff4d4d;
-            width: 33%;
-        }
-
-        .password-strength[data-strength="medium"] {
-            background: #ffd700;
-            width: 66%;
-        }
-
-        .password-strength[data-strength="strong"] {
-            background: #00c853;
-            width: 100%;
         }
 
         /* Loading animation for button */
@@ -187,14 +162,6 @@
             border-top-color: transparent;
             animation: spin 0.8s linear infinite;
             transform: translate(-50%, -50%);
-        }
-        .error {
-            color: #d8000c;
-            background-color: #ffd2d2;
-            padding: 10px;
-            margin-bottom: 20px;
-            border: 1px solid #d8000c;
-            border-radius: 5px;
         }
 
         @keyframes spin {
@@ -222,48 +189,39 @@
                 padding: 12px;
             }
         }
+
+        .error-message {
+            color: #ff4d4d;
+            background-color: #ffe6e6;
+            border: 1px solid #ffcccc;
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 5px;
+        }
     </style>
 </head>
+
 <body>
     <div class="container">
-        <h1>Create Account</h1>
+        <h1>Welcome Back</h1>
         {% if error %}
-            <div class="error">{{ error }}</div>
+        <div class="error-message">{{ error }}</div>
         {% endif %}
-        <form action="{{ url_for('register') }}" method="POST" id="registerForm">
-            <div class="input-group">
-                <input type="text" name="name" placeholder="Full name" required>
-            </div>
+        <form action="{{ url_for('login') }}" method="POST" id="loginForm">
             <div class="input-group">
                 <input type="email" name="email" placeholder="Email address" required>
             </div>
             <div class="input-group">
-                <input type="password" name="password" placeholder="Password" required id="password">
-                <div class="password-strength"></div>
+                <input type="password" name="password" placeholder="Password" required>
             </div>
-            <button type="submit" id="registerButton">Create Account</button>
+            <button type="submit" id="loginButton">Sign In</button>
         </form>
-        <p class="login-link">Already have an account? <a href="{{ url_for('index') }}">Sign in</a></p>
+        <p class="signup-link">Don't have an account? <a href="{{ url_for('register') }}">Sign up</a></p>
     </div>
 
     <script>
-        // Password strength checker
-        document.getElementById('password').addEventListener('input', function(e) {
-            const password = e.target.value;
-            const strengthBar = document.querySelector('.password-strength');
-            
-            if (password.length < 6) {
-                strengthBar.setAttribute('data-strength', 'weak');
-            } else if (password.length < 10) {
-                strengthBar.setAttribute('data-strength', 'medium');
-            } else {
-                strengthBar.setAttribute('data-strength', 'strong');
-            }
-        });
-
-        // Form submission animation
-        document.getElementById('registerForm').addEventListener('submit', function(e) {
-            const button = document.getElementById('registerButton');
+        document.getElementById('loginForm').addEventListener('submit', function (e) {
+            const button = document.getElementById('loginButton');
             button.classList.add('loading');
             // Remove loading class after 2 seconds (simulating API call)
             setTimeout(() => {
@@ -272,4 +230,5 @@
         });
     </script>
 </body>
+
 </html>

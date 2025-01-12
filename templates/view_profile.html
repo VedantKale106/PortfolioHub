@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ profile.name }}'s Resume</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background-color: #f5f5f5;
+            color: #2c3e50;
+            line-height: 1.4;
+            padding: 0;
+            /* Remove any padding */
+            margin: 0;
+            /* Remove any margin */
+        }
+
+        .container {
+            max-width: 850px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            padding: 15px;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #2c3e50, #34495e);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 1.8rem;
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+
+        .contact-info {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 15px;
+            font-size: 0.8rem;
+            margin-top: 10px;
+        }
+
+        .contact-info a {
+            color: white;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .main-content {
+            padding: 20px;
+        }
+
+        .section {
+            margin-bottom: 20px;
+        }
+
+        .section-title {
+            font-size: 1rem;
+            font-weight: 600;
+            color: #2c3e50;
+            border-bottom: 2px solid #3498db;
+            padding-bottom: 5px;
+            margin-bottom: 15px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .skills-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            list-style: none;
+        }
+
+        .skill-item {
+            background: #f8f9fa;
+            padding: 5px 10px;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            border: 1px solid #e9ecef;
+        }
+
+        .education-item,
+        .project-item {
+            margin-bottom: 15px;
+            padding: 10px;
+            background: #f8f9fa;
+            border-radius: 4px;
+            border-left: 3px solid #3498db;
+        }
+
+        .education-item h3,
+        .project-item h3 {
+            color: #2c3e50;
+            margin-bottom: 5px;
+        }
+
+        .date {
+            color: #666;
+            font-size: 0.8rem;
+            margin-bottom: 5px;
+        }
+
+        .project-links {
+            margin-top: 8px;
+        }
+
+        .project-links a {
+            color: #3498db;
+            text-decoration: none;
+            margin-right: 12px;
+            font-size: 0.9rem;
+        }
+
+        .project-links a:hover {
+            text-decoration: underline;
+        }
+
+        .floating-buttons {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .floating-button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 8px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: background-color 0.3s;
+            font-size: 14px;
+            text-align: center;
+        }
+
+        .floating-button:hover {
+            background-color: #0056b3;
+        }
+
+        .floating-button span {
+            font-size: 14px;
+            font-weight: bold;
+        }
+
+        .floating-button.make-your-website-button {
+            background-color: #28a745;
+        }
+
+        .floating-button.make-your-website-button:hover {
+            background-color: #218838;
+        }
+
+        .floating-button.home-button {
+            background-color: #ffc107;
+        }
+
+        .floating-button.home-button:hover {
+            background-color: #e0a800;
+        }
+
+        /* Mobile Responsiveness */
+        @media (max-width: 768px) {
+            .floating-buttons {
+                bottom: 10px;
+                right: 10px;
+                gap: 8px;
+            }
+
+            .floating-button {
+                padding: 10px 15px;
+                font-size: 12px;
+            }
+
+            .floating-button span {
+                font-size: 12px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .floating-buttons {
+                bottom: 10px;
+                right: 5px;
+                gap: 6px;
+            }
+
+            .floating-button {
+                padding: 8px 12px;
+                font-size: 11px;
+            }
+
+            .floating-button span {
+                font-size: 11px;
+            }
+        }
+
+
+        @media print {
+            body {
+                padding: 0;
+                margin: 0;
+                background: white;
+            }
+
+            .container {
+                box-shadow: none;
+                border-radius: 0;
+            }
+
+            .header {
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .header {
+                padding: 20px 15px;
+            }
+
+            .header h1 {
+                font-size: 1.6rem;
+            }
+
+            .main-content {
+                padding: 15px;
+            }
+
+            .contact-info {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); /* 2 equal columns */
+    grid-template-rows: repeat(2, auto);   /* 2 equal rows */
+    gap: 10px;
+    justify-items: center; /* Aligns items horizontally in each grid cell */
+    align-items: center;   /* Aligns items vertically in each grid cell */
+}
+
+
+
+        }
+    </style>
+
+
+    </style>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.2/html2pdf.bundle.js"></script>
+</head>
+
+<body>
+    <div class="container" id="resume-container">
+        <div class="header">
+            <h1>{{ profile.name }}</h1>
+            <div class="contact-info">
+                <a href="mailto:{{ profile.contact_info.email }}">
+                    <svg width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+                        <path
+                            d="M.05 3.555L8 8.414l7.95-4.859A2 2 0 0014 2H2A2 2 0 00.05 3.555zM16 4.697l-5.875 3.59L16 11.743V4.697zm-.168 8.108L9.157 8.879 8 9.586l-1.157-.707-6.675 3.926A2 2 0 002 14h12a2 2 0 001.832-1.195zM0 11.743l5.875-3.456L0 4.697v7.046z" />
+                    </svg>
+                    {{ profile.contact_info.email }}
+                </a>
+                <a href="tel:{{ profile.contact_info.phone }}">
+                    <svg width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+                        <path
+                            d="M1.885.511a1.745 1.745 0 012.61.163L6.29 2.98c.329.423.445.974.315 1.494l-.547 2.19a.678.678 0 00.178.643l2.457 2.457a.678.678 0 00.644.178l2.189-.547a1.745 1.745 0 011.494.315l2.306 1.794c.829.645.905 1.87.163 2.611l-1.034 1.034c-.74.74-1.846 1.065-2.877.702a18.634 18.634 0 01-7.01-4.42 18.634 18.634 0 01-4.42-7.009c-.362-1.03-.037-2.137.703-2.877L1.885.511z" />
+                    </svg>
+                    {{ profile.contact_info.phone }}
+                </a>
+                <a href="{{ profile.contact_info.github }}" target="_blank">GitHub</a>
+                <a href="{{ profile.contact_info.linkedin }}" target="_blank">LinkedIn</a>
+            </div>
+        </div>
+
+        <div class="main-content">
+            <div class="section">
+                <h2 class="section-title">Professional Summary</h2>
+                <p>{{ profile.about }}</p>
+            </div>
+
+            <div class="section">
+                <h2 class="section-title">Skills</h2>
+                <ul class="skills-list">
+                    {% for skill in profile.skills %}
+                    <li class="skill-item">{{ skill }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+
+            <div class="section">
+                <h2 class="section-title">Education</h2>
+                <div class="education-item">
+                    <h3>{{ profile.education.course }}</h3>
+                    <div class="date">{{ profile.education.year }}</div>
+                    <p>{{ profile.education.college }}</p>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2 class="section-title">Projects</h2>
+                {% for project in profile.projects %}
+                <div class="project-item">
+                    <h3>{{ project.title }}</h3>
+                    <p>{{ project.description }}</p>
+                    <div class="project-links">
+                        <a href="{{ project.link }}" target="_blank">View Project →</a>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+
+    <div class="floating-buttons">
+        <!-- Download Resume Button -->
+        <button onclick="downloadPDF()" class="floating-button download-button" title="Download Resume">
+            <span>Download Resume</span>
+        </button>
+
+        <!-- Home Button -->
+        <a href="/" class="floating-button home-button" title="Home">
+            <span>Home</span>
+        </a>
+
+        <!-- Make Your Website Button -->
+        <a href="/step5" class="floating-button make-your-website-button" title="Make Your Website">
+            <span>Make Your Website</span>
+        </a>
+    </div>
+
+
+
+    <script>
+        function downloadPDF() {
+            const element = document.getElementById('resume-container');
+            const options = {
+                margin: 0, // Set margin to 0 to remove it
+                filename: 'resume.pdf',
+                image: { type: 'jpeg', quality: 1 },
+                html2canvas: { scale: 2 },
+                jsPDF: { unit: 'in', format: 'letter', orientation: 'portrait' }
+            };
+            html2pdf().from(element).set(options).save();
+        }
+    </script>
+
+</body>
+
+</html>

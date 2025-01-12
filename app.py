@@ -15,7 +15,7 @@ mongo = PyMongo(app)
 def index():
     if "user_id" in session:
         return redirect(url_for("home"))
-    return render_template("index.html")  # Login page
+    return render_template("login.html")  # Login page
 
 @app.route("/register", methods=["GET", "POST"])
 def register():
@@ -25,29 +25,35 @@ def register():
         password = generate_password_hash(request.form["password"])
 
         if mongo.db.users.find_one({"email": email}):
-            return "Email already exists! Try logging in."
+            return render_template("register.html", error="Email already exists! Try logging in.")
 
         mongo.db.users.insert_one({"name": name, "email": email, "password": password})
-        return redirect(url_for("index"))
+        return redirect(url_for("login"))
 
     return render_template("register.html")  # Register page
 
-@app.route("/login", methods=["POST"])
+@app.route("/login", methods=["GET", "POST"])
 def login():
-    email = request.form["email"]
-    password = request.form["password"]
-    user = mongo.db.users.find_one({"email": email})
+    if request.method == "POST":
+        email = request.form["email"]
+        password = request.form["password"]
+        user = mongo.db.users.find_one({"email": email})
 
-    if user and check_password_hash(user["password"], password):
-        session["user_id"] = str(user["_id"])
-        return redirect(url_for("home"))
+        if user and check_password_hash(user["password"], password):
+            session["user_id"] = str(user["_id"])
+            return redirect(url_for("home"))
 
-    return "Invalid credentials! Please try again."
+        # Render the login page with an error message
+        return render_template("login.html", error="Invalid credentials! Please try again.")
+    
+    # Render login page without any error for GET request
+    return render_template("login.html")
+
 
 @app.route("/logout")
 def logout():
     session.pop("user_id", None)
-    return redirect(url_for("index"))
+    return redirect(url_for("login"))
 
 @app.route("/home")
 def home():
@@ -172,6 +178,18 @@ def step5():
 
     return render_template("step5.html", themes=themes) 
 
+
+@app.route("/view_profile")
+def view_profile():
+    if "user_id" not in session:
+        return redirect(url_for("login"))  # Redirect to login if not logged in
+
+    # Fetch the profile details from MongoDB
+    profile = mongo.db.profiles.find_one({"user_id": session["user_id"]})
+    if not profile:
+        return "Profile not found! Please set up your profile."
+
+    return render_template("view_profile.html", profile=profile)
 
 @app.route("/preview")
 def preview():
