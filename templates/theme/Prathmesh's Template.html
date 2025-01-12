@@ -1,0 +1,959 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ profile.name }}</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+</head>
+
+<body>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background: #d9e5ff;
+        }
+
+        /* Navbar styles */
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 20px;
+            background-color: #c26868;
+            color: white;
+            width: 100%;
+            position: relative;
+        }
+
+        /* Hamburger menu for mobile */
+        .hamburger-menu {
+            display: none;
+            font-size: 24px;
+            cursor: pointer;
+            color: white;
+        }
+
+        .sections-nav {
+            padding-left: 25px;
+        }
+
+        /* Navigation items styles */
+        .nav-ul {
+            display: flex;
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        .nav-li {
+            margin: 0 15px;
+        }
+
+        .nav-a {
+            text-decoration: none;
+            color: #ccc;
+            font-size: 16px;
+            position: relative;
+            transition: color 0.3s;
+        }
+
+        .nav-a:hover {
+            color: #00ffcc;
+        }
+
+        .nav-a:hover::after {
+            content: "";
+            position: absolute;
+            width: 100%;
+            height: 2px;
+            background-color: #00ffcc;
+            left: 0;
+            bottom: -5px;
+            transition: width 0.3s;
+        }
+
+        /* Contact button and social links */
+        .link-nav {
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+        }
+
+        .nav-contact-button {
+            background-color: transparent;
+            border: 1px solid #ccc;
+            padding: 8px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s, border-color 0.3s;
+            margin-right: 15px;
+        }
+
+        .nav-contact-button a {
+            text-decoration: none;
+            color: #ccc;
+            font-size: 14px;
+        }
+
+        .nav-contact-button:hover {
+            background-color: #00ffcc;
+            border-color: #00ffcc;
+        }
+
+        .nav-contact-button:hover a {
+            color: #1a1a1a;
+        }
+
+        .nav-link {
+            display: flex;
+            align-items: center;
+        }
+
+        .social-icon {
+            width: 30px;
+            height: 30px;
+            margin-left: 15px;
+            transition: transform 0.3s;
+        }
+
+        .social-icon:hover {
+            transform: scale(1.2);
+        }
+
+        /* Responsive styles */
+        @media (max-width: 768px) {
+            .hamburger-menu {
+                display: block;
+            }
+
+            /* .hamburger-menu::after{
+        display: inline;
+    } */
+
+            .sections-nav {
+                display: none;
+                /* Initially hidden */
+                flex-direction: column;
+                width: 100%;
+                margin-top: 5px;
+                background-color: #1a1a1a;
+                position: absolute;
+                top: 50px;
+                left: 0;
+                z-index: 1000;
+            }
+
+            .sections-nav.active {
+                display: flex;
+            }
+
+            .nav-ul {
+                flex-direction: column;
+                align-items: center;
+                width: 100%;
+            }
+
+            .nav-li {
+                margin: 10px 0;
+            }
+
+            .link-nav {
+                align-items: center;
+                width: 100%;
+                margin-top: 10px;
+            }
+
+            .nav-contact-button {
+                margin-bottom: 10px;
+            }
+
+            .nav-link {
+                justify-content: center;
+            }
+
+            .social-icon {
+                margin: 0 10px;
+            }
+        }
+
+        /* Floating Sidebar */
+        .floating-sidebar {
+            position: fixed;
+            top: 50%;
+            right: 0;
+            transform: translateY(-50%);
+            background-color: #3498db;
+            padding: 6px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            z-index: 1000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .floating-sidebar button {
+            background-color: #e2eef8;
+            color: #3498db;
+            border: 2px solid #3498db;
+            padding: 10px 20px;
+            font-size: 1rem;
+            font-weight: bold;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        .floating-sidebar button:hover {
+            background-color: #3498db;
+            color: #fff;
+        }
+
+        /* Ensure button stays aligned and centered */
+        .floating-sidebar button:focus {
+            outline: none;
+        }
+
+
+        /* Home section */
+        .home {
+
+            height: 10rem;
+            border-radius: 5px;
+        }
+
+        .name {
+            text-align: center;
+            padding-top: 25px;
+            font-size: xx-large;
+        }
+
+        .home-descriprion {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding-top: 35px;
+            font-size: x-large;
+
+        }
+
+        .about {
+            padding: 30px 20px;
+            margin-top: 10px;
+            background-color: #e2eef8;
+            /* Light background for contrast */
+            border-radius: 14px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            /* Subtle shadow */
+            max-width: 80vw;
+            margin: 20px auto;
+            /* Center the section */
+        }
+
+        .about-headding {
+            font-size: 2rem;
+            font-weight: 600;
+            color: #333;
+            text-align: center;
+            margin-bottom: 0.8rem;
+            position: relative;
+        }
+
+        .about-description {
+            padding-top: 20px;
+            font-size: 1rem;
+            line-height: 1.3;
+            color: #000000;
+            text-align: center;
+            font-weight: 400;
+        }
+
+
+
+
+        .projects-container {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 20px;
+        }
+
+        .projects-container>h3 {
+            font-size: 2.5rem;
+            color: #2c3e50;
+            text-align: center;
+            margin-bottom: 3rem;
+            position: relative;
+            padding-bottom: 1rem;
+            font-weight: 600;
+        }
+
+
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            padding: 1rem;
+        }
+
+        /* New styles to control card width */
+        .project-card {
+            background: #e2eef8;
+            border-radius: 15px;
+            padding: 2rem;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            max-width: 500px;
+            /* Maximum width for each card */
+            margin: 0 auto;
+            /* Center the card when alone */
+            width: 100%;
+            /* Take full width up to max-width */
+        }
+
+        .project-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+        }
+
+        .project-name {
+            font-size: 1.5rem;
+            color: #2c3e50;
+            margin-bottom: 1rem;
+            position: relative;
+            padding-bottom: 0.5rem;
+        }
+
+        .project-name::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 50px;
+            height: 3px;
+            background: #3498db;
+            border-radius: 2px;
+        }
+
+        .project-description {
+            margin-top: 1rem;
+            display: flex;
+            flex-direction: column;
+            /* Ensure the description and link are stacked */
+            gap: 1rem;
+        }
+
+        .project-info {
+            color: #666;
+            line-height: 1.6;
+            font-size: 1rem;
+        }
+
+        .project-link {
+            display: inline-block;
+            color: #3498db;
+            text-decoration: none;
+            font-weight: 500;
+            padding: 0.5rem 1rem;
+            border: 2px solid #3498db;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            margin-top: 1rem;
+            width: 15rem;
+        }
+
+        .project-link:hover {
+            background: #3498db;
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        @media (max-width: 768px) {
+            .projects-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .projects-container>h3 {
+                font-size: 2rem;
+            }
+        }
+
+        /* Education Section */
+        .education-container {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 20px;
+        }
+
+        .education-container>h3 {
+            font-size: 2.5rem;
+            color: #2c3e50;
+            text-align: center;
+            margin-bottom: 3rem;
+            position: relative;
+            padding-bottom: 1rem;
+            font-weight: 600;
+        }
+
+
+        .education-details {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+        }
+
+        .education-card {
+            background: #e2eef8;
+            border-radius: 15px;
+            padding: 2rem;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            max-width: 400px;
+            /* Maximum width for each card */
+            width: 100%;
+            text-align: center;
+        }
+
+        .education-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+        }
+
+        .education-course {
+            font-size: 1.5rem;
+            color: #2c3e50;
+            margin-bottom: 1rem;
+        }
+
+        .education-college,
+        .education-year {
+            color: #666;
+            font-size: 1.4rem;
+            /* Increased font size */
+            font-weight: bold;
+            /* Makes the text bold */
+            margin-top: 3%;
+        }
+
+
+        /* Mobile responsiveness */
+        @media (max-width: 768px) {
+            .education-details {
+                flex-direction: column;
+                /* Stack cards vertically on smaller screens */
+            }
+
+            .education-container>h3 {
+                font-size: 2rem;
+            }
+        }
+
+
+
+        /* Contact Section */
+        .contact-container {
+            max-width: 1200px;
+            margin: 3rem auto;
+            padding: 20px;
+        }
+
+        .contact-container>h3 {
+            font-size: 2.5rem;
+            color: #2c3e50;
+            text-align: center;
+            margin-bottom: 3rem;
+            position: relative;
+            padding-bottom: 1rem;
+            font-weight: 600;
+        }
+
+
+
+        /* Form Styles */
+        .contact-form {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 2rem;
+            background: #e2eef8;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .form-label {
+            font-size: 1rem;
+            color: #2c3e50;
+        }
+
+        .form-input {
+            padding: 0.8rem;
+            font-size: 1rem;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            outline: none;
+        }
+
+        .form-input:focus {
+            border-color: #3498db;
+            box-shadow: 0 0 5px rgba(52, 152, 219, 0.5);
+        }
+
+        .form-button {
+            padding: 1rem;
+            font-size: 1.2rem;
+            color: white;
+            background: #3498db;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .form-button:hover {
+            background: #2980b9;
+            transform: translateY(-2px);
+        }
+
+        /* Mobile responsiveness */
+        @media (max-width: 768px) {
+            .contact-form {
+                width: 100%;
+                padding: 1.5rem;
+            }
+
+            .contact-container>h3 {
+                font-size: 2rem;
+            }
+        }
+
+
+
+        /* Footer Styles */
+        .my-footer {
+            background-color: #abc4ff;
+            /* Faint shade of #abc4ff */
+            padding: 2rem;
+            text-align: center;
+            color: #2c3e50;
+            border-top: 1px solid #ddd;
+        }
+
+        .my-footer p {
+            font-size: 1rem;
+            color: #333;
+            margin-bottom: 1rem;
+        }
+
+        .my-footer .links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-top: 1rem;
+        }
+
+        .my-footer .links a {
+            color: #2c3e50;
+            text-decoration: none;
+            font-size: 1rem;
+            transition: color 0.3s ease;
+        }
+
+        .my-footer .links a:hover {
+            color: #3498db;
+            /* Change to blue on hover */
+        }
+
+        @media (max-width: 768px) {
+            .my-footer .links {
+                flex-direction: column;
+                gap: 1rem;
+            }
+        }
+
+        .social-icon {
+            font-size: 30px;
+            /* Adjust the icon size */
+            color: #000;
+            /* Adjust the color */
+            margin: 0 10px;
+            /* Add spacing between icons */
+        }
+    </style>
+    <style>
+        .skills-container {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 20px;
+        }
+
+        .skills-title {
+            text-align: center;
+            margin-bottom: 2rem;
+            font-size: 2.5rem;
+            color: #2c3e50;
+            font-weight: 600;
+        }
+
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 2rem;
+            padding: 1rem;
+        }
+
+        .skill-card {
+            position: relative;
+            background: #e2eef8;
+            border-radius: 20px;
+            padding: 2rem 1.5rem;
+            text-align: center;
+            transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 150px;
+            overflow: hidden;
+        }
+
+        .skill-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(52, 152, 219, 0.2) 0%, rgba(52, 152, 219, 0) 100%);
+            border-radius: 20px;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .skill-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .skill-card:hover::before {
+            opacity: 1;
+        }
+
+        .skill-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: #3498db;
+            transition: transform 0.3s ease;
+        }
+
+        .skill-card:hover .skill-icon {
+            transform: scale(1.1);
+        }
+
+        .skill-heading {
+            font-size: 1.2rem;
+            color: #2c3e50;
+            margin: 0;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Progress bar styles */
+        .skill-progress {
+            width: 80%;
+            height: 6px;
+            background: #d1d8e0;
+            border-radius: 3px;
+            margin-top: 1rem;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .progress-bar {
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 100%;
+            background: #3498db;
+            border-radius: 3px;
+            transition: width 1s ease-in-out;
+        }
+
+        @media (max-width: 768px) {
+            .skills-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 1rem;
+            }
+
+            .skill-card {
+                min-height: 120px;
+                padding: 1.5rem 1rem;
+            }
+
+            .skill-icon {
+                font-size: 2rem;
+            }
+
+            .skill-heading {
+                font-size: 1rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .skills-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .skills-title {
+                font-size: 2rem;
+            }
+        }
+    </style>
+    <nav class="navbar">
+        <div class="hamburger-menu" id="hamburger-menu">
+            &#9776; <!-- Three dashes -->
+        </div>
+        <div class="sections-nav" id="nav-menu">
+            <ul class="nav-ul">
+                <li class="nav-li"><a class="nav-a" href="#home">Home</a></li>
+                <li class="nav-li"><a class="nav-a" href="#about">About</a></li>
+                <li class="nav-li"><a class="nav-a" href="#skills">Skills</a></li>
+                <li class="nav-li"><a class="nav-a" href="#projects">Projects</a></li>
+                <li class="nav-li"><a class="nav-a" href="#education">Education</a></li>
+            </ul>
+        </div>
+        <div class="link-nav">
+            <button class="nav-contact-button">
+                <a href="#contact">
+                    <span>Contact Me</span>
+                </a>
+            </button>
+            <div class="nav-link">
+                <a href="{{ profile.contact_info.linkedin }}" target="_blank">
+                    <i class="fab fa-linkedin social-icon"></i>
+                </a>
+                <a href="{{ profile.contact_info.github }}" target="_blank">
+                    <i class="fab fa-github social-icon"></i>
+                </a>
+            </div>
+
+        </div>
+    </nav>
+
+
+
+    <section class="main-body-container">
+
+        <div id="home" class="home">
+            <div class="name">
+                <h4>{{ profile.name }}</h4>
+            </div>
+            <div class="home-descriprion">
+                <span>Welcome To My Portfolio</span>
+            </div>
+
+        </div>
+
+
+        <div id="about" class="about">
+            <h3 class="about-headding">About Me</h3>
+            <div class="about-description">
+                {{ profile.about }}
+            </div>
+        </div>
+
+
+        <section id="skills" class="skills-container">
+            <h2 class="skills-title">My Skills</h2>
+            <div class="skills-grid">
+                {% for skill in profile.skills %}
+                <div class="skill-card">
+                    <i class="skill-icon fas 
+                    {% if 'JavaScript' in skill %}fa-js
+                    {% elif 'Python' in skill %}fa-python
+                    {% elif 'React' in skill %}fa-react
+                    {% elif 'Node' in skill %}fa-node-js
+                    {% elif 'HTML' in skill %}fa-html5
+                    {% elif 'CSS' in skill %}fa-css3-alt
+                    {% elif 'Git' in skill %}fa-git-alt
+                    {% elif 'Database' in skill %}fa-database
+                    {% elif 'Angular' in skill %}fa-angular
+                    {% elif 'Vue' in skill %}fa-vuejs
+                    {% elif 'PHP' in skill %}fa-php
+                    {% elif 'Java' in skill %}fa-java
+                    {% elif 'Swift' in skill %}fa-swift
+                    {% elif 'Android' in skill %}fa-android
+                    {% elif 'Apple' in skill %}fa-apple
+                    {% elif 'AWS' in skill %}fa-aws
+                    {% elif 'Docker' in skill %}fa-docker
+                    {% elif 'Linux' in skill %}fa-linux
+                    {% elif 'Windows' in skill %}fa-windows
+                    {% elif 'WordPress' in skill %}fa-wordpress
+                    {% elif 'Sass' in skill %}fa-sass
+                    {% elif 'Bootstrap' in skill %}fa-bootstrap
+                    {% elif 'Ruby' in skill %}fa-gem
+                    {% elif 'npm' in skill %}fa-npm
+                    {% elif 'Terminal' in skill or 'Command Line' in skill %}fa-terminal
+                    {% elif 'Server' in skill %}fa-server
+                    {% elif 'Network' in skill %}fa-network-wired
+                    {% elif 'Security' in skill %}fa-shield-alt
+                    {% elif 'Analytics' in skill %}fa-chart-line
+                    {% elif 'Mobile' in skill %}fa-mobile-alt
+                    {% elif 'Cloud' in skill %}fa-cloud
+                    {% elif 'AI' in skill or 'Machine Learning' in skill %}fa-brain
+                    {% elif 'Testing' in skill %}fa-vial
+                    {% elif 'DevOps' in skill %}fa-infinity
+                    {% elif 'Agile' in skill or 'Scrum' in skill %}fa-tasks
+                    {% elif 'UI/UX' in skill or 'Design' in skill %}fa-palette
+                    {% elif 'REST' in skill or 'API' in skill %}fa-plug
+                    {% elif 'Blockchain' in skill %}fa-cube
+                    {% elif 'GraphQL' in skill %}fa-project-diagram
+                    {% else %}fa-code
+                    {% endif %}">
+                    </i>
+                    <h3 class="skill-heading">{{ skill }}</h3>
+                </div>
+                {% endfor %}
+            </div>
+        </section>
+
+        <section id="projects" class="projects-container">
+            <h3>Projects</h3>
+
+            <div class="projects-grid">
+                {% for project in profile.projects %}
+                <div class="project-card">
+                    <h3 class="project-name">{{ project.title }}</h3>
+                    <div class="project-description">
+                        <span class="project-info">{{ project.description }}</span>
+                        <a href="{{ project.link }}" class="project-link">View Project</a>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </section>
+
+        <!-- Education Section -->
+        <section id="education" class="education-container">
+            <h3>Education</h3>
+            <div class="education-details">
+
+                <div class="education-card">
+                    <h4 class="education-course">{{ profile.education.course }}</h4>
+                    <p class="education-college">{{ profile.education.college }}</p>
+                    <p class="education-year">{{ profile.education.year }}</p>
+                </div>
+
+            </div>
+        </section>
+
+        <section id="contact" class="contact-container">
+            <h3>Contact Me</h3>
+            <form class="contact-form" action="#" method="post">
+                <div class="form-group">
+                    <label for="name" class="form-label">Name</label>
+                    <input type="text" id="name" name="name" class="form-input" placeholder="Enter your name"
+                        required />
+                </div>
+                <div class="form-group">
+                    <label for="email" class="form-label">Email</label>
+                    <input type="email" id="email" name="email" class="form-input"
+                        placeholder="Enter your email address" required />
+                </div>
+                <div class="form-group">
+                    <label for="message" class="form-label">Message</label>
+                    <textarea id="message" name="message" class="form-input" rows="4"
+                        placeholder="Enter your message..." required></textarea>
+                </div>
+                <button type="submit" class="form-button">Submit</button>
+            </form>
+        </section>
+    </section>
+
+    <footer class="my-footer">
+        <p>&copy; {{ current_year }} {{ profile.name }} | All Rights Reserved</p>
+        <div class="links">
+            {% if profile.contact_info.phone %}
+            <a href="tel:{{ profile.contact_info.phone }}" target="_blank">Phone</a>
+            {% endif %}
+            {% if profile.contact_info.email %}
+            <a href="mailto:{{ profile.contact_info.email }}" target="_blank">Email</a>
+            {% endif %}
+            {% if profile.contact_info.linkedin %}
+            <a href="{{ profile.contact_info.linkedin }}" target="_blank">LinkedIn</a>
+            {% endif %}
+            {% if profile.contact_info.github %}
+            <a href="{{ profile.contact_info.github }}" target="_blank">GitHub</a>
+            {% endif %}
+        </div>
+    </footer>
+
+    <div class="sidebar"
+        style="position: fixed; top: 50%; right: 0; transform: translateY(-50%); background-color: #333; padding: 20px; border-radius: 10px 0 0 10px; box-shadow: -2px 2px 10px rgba(0, 0, 0, 0.3);">
+        <button onclick="downloadProfile()"
+            style="padding: 15px 25px; background-color: #007bff; color: #fff; font-size: 1.2rem; border: none; border-radius: 8px; cursor: pointer; transition: background-color 0.3s, transform 0.2s;">
+            Download Profile
+        </button>
+    </div>
+
+    <script>
+        function downloadProfile() {
+            // Clone the document's body to avoid modifying the original DOM
+            const profileBody = document.body.cloneNode(true);
+
+            // Remove the sidebar from the cloned body
+            const sidebar = profileBody.querySelector('.sidebar');
+            if (sidebar) {
+                sidebar.remove();  // Remove the sidebar in the clone
+            }
+
+            // Convert the modified body to HTML and create a downloadable blob
+            const profileHtml = `<!DOCTYPE html>
+            <html lang="en">
+            <head>
+                <meta charset="UTF-8">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                <title>Profile</title>
+                    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+            </head>
+            <body>
+                ${profileBody.innerHTML}
+            </body>
+            </html>`;
+
+            const blob = new Blob([profileHtml], { type: 'text/html' });
+            const link = document.createElement('a');
+            link.href = URL.createObjectURL(blob);
+            link.download = 'profile.html';
+            link.click();
+        }
+    </script>
+
+    <script>
+        const hamburgerMenu = document.getElementById("hamburger-menu");
+        const navMenu = document.getElementById("nav-menu");
+
+        hamburgerMenu.addEventListener("click", () => {
+            navMenu.classList.toggle("active");
+        });
+
+    </script>
+</body>
+
+</html>
