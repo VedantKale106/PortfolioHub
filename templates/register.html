@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -38,6 +39,7 @@
                 transform: translateY(0);
                 opacity: 1;
             }
+
             from {
                 transform: translateY(20px);
                 opacity: 0;
@@ -188,6 +190,7 @@
             animation: spin 0.8s linear infinite;
             transform: translate(-50%, -50%);
         }
+
         .error {
             color: #d8000c;
             background-color: #ffd2d2;
@@ -224,11 +227,12 @@
         }
     </style>
 </head>
+
 <body>
     <div class="container">
         <h1>Create Account</h1>
         {% if error %}
-            <div class="error">{{ error }}</div>
+        <div class="error">{{ error }}</div>
         {% endif %}
         <form action="{{ url_for('register') }}" method="POST" id="registerForm">
             <div class="input-group">
@@ -248,10 +252,10 @@
 
     <script>
         // Password strength checker
-        document.getElementById('password').addEventListener('input', function(e) {
+        document.getElementById('password').addEventListener('input', function (e) {
             const password = e.target.value;
             const strengthBar = document.querySelector('.password-strength');
-            
+
             if (password.length < 6) {
                 strengthBar.setAttribute('data-strength', 'weak');
             } else if (password.length < 10) {
@@ -262,7 +266,7 @@
         });
 
         // Form submission animation
-        document.getElementById('registerForm').addEventListener('submit', function(e) {
+        document.getElementById('registerForm').addEventListener('submit', function (e) {
             const button = document.getElementById('registerButton');
             button.classList.add('loading');
             // Remove loading class after 2 seconds (simulating API call)
@@ -272,4 +276,5 @@
         });
     </script>
 </body>
+
 </html>

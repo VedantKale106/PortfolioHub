@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ profile.name }} | Portfolio</title>
+
+    <!-- Google Fonts -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&family=Roboto:wght@300;400;500&display=swap"
+        rel="stylesheet">
+</head>
+
+<body>
+
+    <style>
+        /* Global Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f5f5f5;
+            color: #333;
+            line-height: 1.6;
+            padding: 0;
+            overflow-x: hidden;
+        }
+
+        h1,
+        h2,
+        p {
+            margin: 0;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        /* Header Styles */
+        header {
+            background-color: #45aaf2;
+            color: white;
+            text-align: center;
+            padding: 100px 20px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+            position: relative;
+        }
+
+        header h1 {
+            font-size: 4rem;
+            font-weight: 600;
+            margin-bottom: 15px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        header p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+
+        /* Container Styles */
+        .container {
+            width: 85%;
+            max-width: 1100px;
+            margin: 40px auto;
+            background: white;
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
+            transform: translateY(50px);
+            opacity: 0;
+            animation: fadeInUp 1s ease-out forwards;
+        }
+
+        .container h2 {
+            color: #45aaf2;
+            font-size: 2.5rem;
+            margin-bottom: 25px;
+            position: relative;
+        }
+
+        .container h2::after {
+            content: "";
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 50px;
+            height: 3px;
+            background-color: #45aaf2;
+        }
+
+        /* Card Styles for Sections */
+        section {
+            margin-bottom: 40px;
+        }
+
+        section ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        section li {
+            font-size: 1.1rem;
+            margin-bottom: 12px;
+        }
+
+        .card {
+            background: #f9f9f9;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+        }
+
+        /* Button Styles */
+        .btn {
+            background-color: #45aaf2;
+            color: white;
+            padding: 15px 30px;
+            font-size: 1.2rem;
+            border-radius: 30px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            display: inline-block;
+            margin-top: 20px;
+        }
+
+        .btn:hover {
+            background-color: #3d92cc;
+            transform: translateY(-5px);
+        }
+
+        /* Contact Us Section */
+        #contact {
+            background-color: #eaf6ff;
+            padding: 60px 20px;
+            text-align: center;
+        }
+
+        #contact h2 {
+            font-size: 2.5rem;
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        .contact-form {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 30px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .contact-form input,
+        .contact-form textarea {
+            width: 100%;
+            padding: 15px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            font-size: 1.1rem;
+            background-color: #f9f9f9;
+        }
+
+        .contact-form button {
+            width: 100%;
+            padding: 15px;
+            font-size: 1.2rem;
+            color: white;
+            background-color: #45aaf2;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .contact-form button:hover {
+            background-color: #3d92cc;
+        }
+
+        /* Footer Styles */
+        footer {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 50px 20px;
+            margin-top: 60px;
+        }
+
+        footer h2 {
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+        }
+
+        footer .links a {
+            color: white;
+            text-decoration: none;
+            margin: 10px 20px;
+            font-size: 1.2rem;
+            transition: color 0.3s ease;
+        }
+
+        footer .links a:hover {
+            color: #45aaf2;
+        }
+
+        footer .copyright {
+            font-size: 1rem;
+            opacity: 0.7;
+            margin-top: 20px;
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            0% {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Responsive Styles */
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 2.8rem;
+            }
+
+            .container h2 {
+                font-size: 2rem;
+            }
+
+            .contact-form input,
+            .contact-form textarea {
+                font-size: 1rem;
+            }
+
+            .btn {
+                font-size: 1rem;
+                padding: 12px 25px;
+            }
+
+            footer h2 {
+                font-size: 1.5rem;
+            }
+
+            footer .links a {
+                font-size: 1rem;
+                margin: 5px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            header h1 {
+                font-size: 2rem;
+            }
+
+            .container h2 {
+                font-size: 1.6rem;
+            }
+
+            footer .links a {
+                font-size: 0.9rem;
+            }
+        }
+    </style>
+
+    <!-- Header Section -->
+    <header>
+        <h1>{{ profile.name }}</h1>
+        <p>Welcome to my personal portfolio. Let's create something amazing together!</p>
+    </header>
+
+    <!-- Main Content -->
+    <div class="container" id="about-section">
+        <section id="about">
+            <h2>About Me</h2>
+            <p>{{ profile.about }}</p>
+        </section>
+    </div>
+
+    <div class="container" id="skills-section">
+        <section id="skills">
+            <h2>Skills</h2>
+            <div class="card">
+                <ul>
+                    {% for skill in profile.skills %}
+                    <li>{{ skill }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </section>
+    </div>
+
+    <div class="container" id="projects-section">
+        <section id="projects">
+            <h2>Projects</h2>
+            <div class="card">
+                <ul>
+                    {% for project in profile.projects %}
+                    <li>
+                        <strong>{{ project.title }}</strong><br>
+                        <em>{{ project.description }}</em><br>
+                        <a href="{{ project.link }}" target="_blank" class="btn">View Project</a>
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </section>
+    </div>
+
+    <div class="container" id="education-section">
+        <section id="education">
+            <h2>Education</h2>
+            <p><strong>Course:</strong> {{ profile.education.course }}</p>
+            <p><strong>College:</strong> {{ profile.education.college }}</p>
+            <p><strong>Year:</strong> {{ profile.education.year }}</p>
+        </section>
+    </div>
+
+    <div class="container" id="online-links-section">
+        <section id="online-links">
+            <h2>Online Links</h2>
+            <div class="links">
+                {% if profile.contact_info.linkedin %}
+                <a href="{{ profile.contact_info.linkedin }}" target="_blank" class="btn">LinkedIn</a>
+                {% endif %}
+                {% if profile.contact_info.github %}
+                <a href="{{ profile.contact_info.github }}" target="_blank" class="btn">GitHub</a>
+                {% endif %}
+                {% if profile.contact_info.email %}
+                <a href="mailto:{{ profile.contact_info.email }}" class="btn">Email</a>
+                {% endif %}
+                {% if profile.contact_info.phone %}
+                <a href="tel:{{ profile.contact_info.phone }}" class="btn">Phone</a>
+                {% endif %}
+            </div>
+        </section>
+    </div>
+
+    <!-- Contact Us Section -->
+    <div id="contact">
+        <h2>Contact Me</h2>
+        <div class="contact-form">
+            <form action="#" method="post">
+                <input type="text" placeholder="Your Name" name="name" required>
+                <input type="email" placeholder="Your Email" name="email" required>
+                <textarea placeholder="Your Message" name="message" rows="4" required></textarea>
+                <button type="submit">Send Message</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Footer Section -->
+    <footer>
+        <h2>Contact Me</h2>
+        <div class="links">
+            {% if profile.contact_info.linkedin %}
+            <a href="{{ profile.contact_info.linkedin }}" target="_blank">LinkedIn</a>
+            {% endif %}
+            {% if profile.contact_info.github %}
+            <a href="{{ profile.contact_info.github }}" target="_blank">GitHub</a>
+            {% endif %}
+        </div>
+        <div class="copyright">
+            <p>&copy; {{ current_year }} {{ profile.name }} | All Rights Reserved</p>
+        </div>
+    </footer>
+    <!-- Floating Sidebar, add this to the ending of your code, add the script too-->
+    <div class="sidebar"
+        style="position: fixed; top: 50%; right: 0; transform: translateY(-50%); background-color: #333; padding: 20px; border-radius: 10px 0 0 10px; box-shadow: -2px 2px 10px rgba(0, 0, 0, 0.3);">
+        <button onclick="downloadProfile()"
+            style="padding: 15px 25px; background-color: #007bff; color: #fff; font-size: 1.2rem; border: none; border-radius: 8px; cursor: pointer; transition: background-color 0.3s, transform 0.2s;">
+            Download Profile
+        </button>
+    </div>
+
+    <script>
+        function downloadProfile() {
+            // Clone the document's body to avoid modifying the original DOM
+            const profileBody = document.body.cloneNode(true);
+
+            // Remove the sidebar from the cloned body
+            const sidebar = profileBody.querySelector('.sidebar');
+            if (sidebar) {
+                sidebar.remove();  // Remove the sidebar in the clone
+            }
+
+            // Convert the modified body to HTML and create a downloadable blob
+            const profileHtml = `<!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Profile</title>
+    </head>
+    <body>
+        ${profileBody.innerHTML}
+    </body>
+    </html>`;
+
+            const blob = new Blob([profileHtml], { type: 'text/html' });
+            const link = document.createElement('a');
+            link.href = URL.createObjectURL(blob);
+            link.download = 'profile.html';
+            link.click();
+        }
+    </script>
+</body>
+
+</html>

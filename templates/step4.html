@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -78,6 +79,7 @@
         }
     </style>
 </head>
+
 <body class="bg-gray-50 min-h-screen py-8 px-4">
     <div class="form-container">
         <!-- Progress Bar -->
@@ -101,68 +103,61 @@
                 <div class="project-item" id="project_1">
                     <button type="button" class="delete-btn" onclick="deleteProject('project_1')">Delete</button>
                     <label class="block text-gray-700 font-medium mb-2">Title</label>
-                    <input 
-                        type="text" 
-                        name="project_title_1" 
-                        class="form-input" 
-                        placeholder="Project Title"
-                    >
+                    <input type="text" name="project_title_1" class="form-input" placeholder="Project Title">
 
                     <label class="block text-gray-700 font-medium mb-2 mt-4">Description</label>
-                    <textarea 
-                        name="project_description_1" 
-                        class="form-input h-24 resize-none" 
-                        placeholder="Brief description of the project"
-                    ></textarea>
+                    <textarea name="project_description_1" class="form-input h-24 resize-none"
+                        placeholder="Brief description of the project"></textarea>
 
                     <label class="block text-gray-700 font-medium mb-2 mt-4">Link</label>
-                    <input 
-                        type="url" 
-                        name="project_link_1" 
-                        class="form-input" 
-                        placeholder="Link to the project (optional)"
-                    >
+                    <input type="url" name="project_link_1" class="form-input"
+                        placeholder="Link to the project (optional)">
                 </div>
             </div>
 
-            <button 
-                type="button" 
-                class="btn btn-secondary w-full mt-4 bg-transparent backdrop-blur-sm border-2 border-gray-300 text-gray-700 hover:bg-gray-200" 
-                onclick="addProject()"
-            >
+            <button type="button"
+                class="btn btn-secondary w-full mt-4 bg-transparent backdrop-blur-sm border-2 border-gray-300 text-gray-700 hover:bg-gray-200"
+                onclick="addProject()">
                 Add Another Project
             </button>
 
             <div class="flex justify-between mt-3">
                 <!-- Previous Step Button -->
-                <a 
-                    href="/step3" 
-                    class="btn btn-primary bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-2 rounded-md"
-                >
+                <a href="/step3"
+                    class="btn btn-primary bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-2 rounded-md">
                     ← Previous Step
                 </a>
 
                 <!-- Submit Button -->
-                <button 
-                    type="submit" 
-                    class="btn btn-primary bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-2 rounded-md"
-                >
-                    Next Step → 
+                <button type="submit"
+                    class="btn btn-primary bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-2 rounded-md">
+                    Next Step →
                 </button>
             </div>
         </form>
-        <a href="/" class="floating-home-button" style="position: fixed; bottom: 30px; right: 30px; width: 50px; height: 50px; background: linear-gradient(135deg, #667eea, #764ba2); border-radius: 25px; display: flex; align-items: center; justify-content: center; color: white; box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4); cursor: pointer; transition: transform 0.2s ease, box-shadow 0.2s ease; text-decoration: none; animation: float 2s infinite ease-in-out;">
-            <svg class="home-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" style="width: 24px; height: 24px;">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path>
+        <a href="/" class="floating-home-button"
+            style="position: fixed; bottom: 30px; right: 30px; width: 50px; height: 50px; background: linear-gradient(135deg, #667eea, #764ba2); border-radius: 25px; display: flex; align-items: center; justify-content: center; color: white; box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4); cursor: pointer; transition: transform 0.2s ease, box-shadow 0.2s ease; text-decoration: none; animation: float 2s infinite ease-in-out;">
+            <svg class="home-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                xmlns="http://www.w3.org/2000/svg" style="width: 24px; height: 24px;">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6">
+                </path>
             </svg>
         </a>
-        
+
         <style>
             @keyframes float {
-                0%, 100% { transform: translateY(0); }
-                50% { transform: translateY(-10px); }
+
+                0%,
+                100% {
+                    transform: translateY(0);
+                }
+
+                50% {
+                    transform: translateY(-10px);
+                }
             }
-            
+
             @media (max-width: 768px) {
                 .floating-home-button {
                     bottom: 20px;
@@ -171,7 +166,7 @@
                     height: 45px;
                 }
             }
-        
+
             @media (max-width: 480px) {
                 .floating-home-button {
                     bottom: 15px;
@@ -179,14 +174,14 @@
                     width: 40px;
                     height: 40px;
                 }
-        
+
                 .home-icon {
                     width: 18px;
                     height: 18px;
                 }
             }
         </style>
-        
+
     </div>
 
     <script>
@@ -232,4 +227,5 @@
         }
     </script>
 </body>
+
 </html>

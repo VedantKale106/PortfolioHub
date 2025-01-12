@@ -1,21 +1,24 @@
-from flask import Flask, render_template, redirect, url_for, request, session, send_file
+import datetime
+from dotenv import load_dotenv
+from flask import Flask, flash, render_template, redirect, url_for, request, session, send_file
 from flask_pymongo import PyMongo
 from werkzeug.security import generate_password_hash, check_password_hash
 import os
 
 app = Flask(__name__)
-app.secret_key = "your_secret_key"
+load_dotenv()
+app.secret_key = os.getenv("SECRET_KEY")
 
 # MongoDB Configuration
-app.config["MONGO_URI"] = "mongodb+srv://vedant:lulli@portfolio.e8ky0.mongodb.net/portfolio"
+app.config["MONGO_URI"] = os.getenv("MONGO_URI")
 mongo = PyMongo(app)
 
-# Routes
+# Index Route
 @app.route("/")
 def index():
     if "user_id" in session:
         return redirect(url_for("home"))
-    return render_template("login.html")  # Login page
+    return render_template("login.html")  
 
 @app.route("/register", methods=["GET", "POST"])
 def register():
@@ -30,8 +33,9 @@ def register():
         mongo.db.users.insert_one({"name": name, "email": email, "password": password})
         return redirect(url_for("login"))
 
-    return render_template("register.html")  # Register page
+    return render_template("register.html")  
 
+# Login Route
 @app.route("/login", methods=["GET", "POST"])
 def login():
     if request.method == "POST":
@@ -50,17 +54,21 @@ def login():
     return render_template("login.html")
 
 
+# Logout Route
 @app.route("/logout")
 def logout():
     session.pop("user_id", None)
     return redirect(url_for("login"))
 
+# Home Route
 @app.route("/home")
 def home():
     if "user_id" not in session:
         return redirect(url_for("index"))
-    return render_template("home.html")  # Home page with "Make Your Website" button
+    return render_template("home.html")  
 
+# Steps to Fill the Details
+# Name and About form
 @app.route("/step1", methods=["GET", "POST"])
 def step1():
     if "user_id" not in session:
@@ -82,6 +90,7 @@ def step1():
     profile = mongo.db.profiles.find_one({"user_id": session["user_id"]}) or {}
     return render_template("step1.html", profile=profile)  
 
+# Contact Info form
 @app.route("/step2", methods=["GET", "POST"])
 def step2():
     if "user_id" not in session:
@@ -103,8 +112,9 @@ def step2():
         return redirect(url_for("step3"))
 
     profile = mongo.db.profiles.find_one({"user_id": session["user_id"]}) or {}
-    return render_template("step2.html", profile=profile)  # Contact Info form
+    return render_template("step2.html", profile=profile)  
 
+ # Education form
 @app.route("/step3", methods=["GET", "POST"])
 def step3():
     if "user_id" not in session:
@@ -125,8 +135,9 @@ def step3():
         return redirect(url_for("step4"))
 
     profile = mongo.db.profiles.find_one({"user_id": session["user_id"]}) or {}
-    return render_template("step3.html", profile=profile)  # Education form
+    return render_template("step3.html", profile=profile) 
 
+ # Projects form
 @app.route("/step4", methods=["GET", "POST"])
 def step4():
     if "user_id" not in session:
@@ -154,8 +165,9 @@ def step4():
         return redirect(url_for("step5"))
 
     profile = mongo.db.profiles.find_one({"user_id": session["user_id"]}) or {}
-    return render_template("step4.html", profile=profile)  # Projects form
+    return render_template("step4.html", profile=profile) 
 
+# Select Theme
 @app.route("/step5", methods=["GET", "POST"])
 def step5():
     if "user_id" not in session:
@@ -178,7 +190,7 @@ def step5():
 
     return render_template("step5.html", themes=themes) 
 
-
+# Resume Route
 @app.route("/view_profile")
 def view_profile():
     if "user_id" not in session:
@@ -191,6 +203,7 @@ def view_profile():
 
     return render_template("view_profile.html", profile=profile)
 
+# Cooking the website
 @app.route("/preview")
 def preview():
     if "user_id" not in session:
@@ -201,21 +214,50 @@ def preview():
         return redirect(url_for("step1"))  # Redirect to step 1 if profile doesn't exist
 
     # Dynamically load the selected theme
-    theme = profile.get("theme", "Aditya's Template.html")  # Default to 'theme1'
+    theme = profile.get("theme", "Cybersecurity Theme.html") 
     theme_path = f"theme/{theme}"  # Include the 'theme/' folder in the path
 
     return render_template(theme_path, profile=profile)  # Render the selected theme
 
+# About Page
 @app.route("/about")
 def about():
     if "user_id" not in session:
         return redirect(url_for("index"))
     return render_template("about.html")
 
-@app.route("/contact")
+# Contact Us
+@app.route("/contact", methods=['GET', 'POST'])
 def contact():
+    # Ensure user is logged in
     if "user_id" not in session:
+        flash("You need to log in to access the contact page.", "error")
         return redirect(url_for("index"))
+    
+    if request.method == 'POST':
+        # Get form data
+        name = request.form.get('name')
+        email = request.form.get('email')
+        message = request.form.get('message')
+        
+        if not name or not email or not message:
+            flash("All fields are required!", "error")
+            return redirect(url_for("contact"))
+        
+        try:
+            # Insert the data into the database
+            mongo.db.messages.insert_one({
+                'name': name,
+                'email': email,
+                'message': message,
+                'timestamp': datetime.datetime.utcnow()
+            })
+            flash('Message sent successfully!', 'success')
+        except Exception as e:
+            flash(f'An error occurred: {e}', 'error')
+        
+        return redirect(url_for('contact'))
+    
     return render_template("contact.html")
 
 

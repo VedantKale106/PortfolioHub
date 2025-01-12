@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -15,6 +16,7 @@
         }
     </style>
 </head>
+
 <body class="bg-gray-50 min-h-screen py-8 px-4">
     <div class="max-w-2xl mx-auto bg-white rounded-lg shadow-md p-6 md:p-8">
         <!-- Progress Bar -->
@@ -35,14 +37,10 @@
         <form action="/step5" method="post">
             <div class="mb-6">
                 <label for="theme" class="block text-gray-700 font-medium mb-2">Select Theme:</label>
-                <select 
-                    name="theme" 
-                    id="theme" 
-                    required
-                    class="form-input w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-indigo-500 focus:border-indigo-500"
-                >
+                <select name="theme" id="theme" required
+                    class="form-input w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-indigo-500 focus:border-indigo-500">
                     {% for theme in themes %}
-                        <option value="{{ theme }}">{{ theme.replace('.html', '').capitalize() }}</option>
+                    <option value="{{ theme }}">{{ theme.replace('.html', '').capitalize() }}</option>
                     {% endfor %}
                 </select>
             </div>
@@ -50,35 +48,42 @@
             <!-- Navigation Buttons -->
             <div class="flex justify-between">
                 <!-- Previous Step Button -->
-                <a 
-                    href="/step4" 
-                    class="btn btn-secondary bg-gray-500 hover:bg-gray-600 text-white px-4 py-2 rounded-md"
-                >
+                <a href="/step4"
+                    class="btn btn-secondary bg-gray-500 hover:bg-gray-600 text-white px-4 py-2 rounded-md">
                     ← Previous Step
                 </a>
 
                 <!-- Submit Button -->
-                <button 
-                    type="submit" 
-                    class="btn btn-primary bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-2 rounded-md"
-                >
+                <button type="submit"
+                    class="btn btn-primary bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-2 rounded-md">
                     Preview →
                 </button>
             </div>
         </form>
     </div>
-    <a href="/" class="floating-home-button" style="position: fixed; bottom: 30px; right: 30px; width: 50px; height: 50px; background: linear-gradient(135deg, #667eea, #764ba2); border-radius: 25px; display: flex; align-items: center; justify-content: center; color: white; box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4); cursor: pointer; transition: transform 0.2s ease, box-shadow 0.2s ease; text-decoration: none; animation: float 2s infinite ease-in-out;">
-        <svg class="home-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" style="width: 24px; height: 24px;">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path>
+    <a href="/" class="floating-home-button"
+        style="position: fixed; bottom: 30px; right: 30px; width: 50px; height: 50px; background: linear-gradient(135deg, #667eea, #764ba2); border-radius: 25px; display: flex; align-items: center; justify-content: center; color: white; box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4); cursor: pointer; transition: transform 0.2s ease, box-shadow 0.2s ease; text-decoration: none; animation: float 2s infinite ease-in-out;">
+        <svg class="home-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"
+            style="width: 24px; height: 24px;">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6">
+            </path>
         </svg>
     </a>
-    
+
     <style>
         @keyframes float {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-10px); }
+
+            0%,
+            100% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(-10px);
+            }
         }
-        
+
         @media (max-width: 768px) {
             .floating-home-button {
                 bottom: 20px;
@@ -87,7 +92,7 @@
                 height: 45px;
             }
         }
-    
+
         @media (max-width: 480px) {
             .floating-home-button {
                 bottom: 15px;
@@ -95,13 +100,14 @@
                 width: 40px;
                 height: 40px;
             }
-    
+
             .home-icon {
                 width: 18px;
                 height: 18px;
             }
         }
     </style>
-    
+
 </body>
+
 </html>

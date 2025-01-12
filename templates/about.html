@@ -1,12 +1,306 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <title>About Us</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Team Portfolio</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* Basic Styles */
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #E6F2FF;
+            color: #333;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            min-height: 100vh;
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            background-color: #2A6A92;
+            width: 100%;
+            padding: 40px 0;
+            text-align: center;
+            color: white;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        header h1 {
+            font-size: 3rem;
+        }
+
+        .container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 30px;
+            justify-content: center;
+            margin: 50px 0;
+            padding: 0 20px;
+            width: 100%;
+        }
+
+        .card-container {
+            perspective: 1000px;
+            margin-bottom: 30px;
+            flex: 1 1 250px;
+            max-width: 300px;
+        }
+
+        .card {
+            width: 100%;
+            height: 380px;
+            transform-style: preserve-3d;
+            transition: all 0.6s ease;
+            cursor: pointer;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            position: relative;
+        }
+
+        .card:hover .card-front {
+            transform: rotateY(180deg);
+        }
+
+        .card:hover .card-back {
+            transform: rotateY(0deg);
+        }
+
+        .card-front,
+        .card-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            border-radius: 12px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .card-front {
+            background-color: #1C4D77;
+            color: white;
+            z-index: 2;
+        }
+
+        .card-back {
+            background-color: #FFFFFF;
+            color: #333;
+            transform: rotateY(180deg);
+            z-index: 1;
+        }
+
+        .section-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 20px;
+        }
+
+        .section-content {
+            font-size: 1rem;
+            line-height: 1.6;
+            padding: 0 10px;
+        }
+
+        /* Footer */
+        footer {
+            background-color: #2A6A92;
+            color: white;
+            text-align: center;
+            padding: 30px 20px;
+            width: 100%;
+            margin-top: auto;
+        }
+
+        .social-links {
+            margin-top: 15px;
+        }
+
+        .social-button {
+            background-color: #1C4D77;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: background-color 0.3s;
+            display: inline-block;
+            margin: 5px;
+        }
+
+        .social-button:hover {
+            background-color: #15476E;
+            text-decoration: none;
+        }
+
+        @media (max-width: 1024px) {
+            header h1 {
+                font-size: 2.5rem;
+            }
+
+            .section-title {
+                font-size: 1.3rem;
+            }
+
+            .section-content {
+                font-size: 0.95rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 2rem;
+            }
+
+            .card {
+                height: 320px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            header h1 {
+                font-size: 1.5rem;
+            }
+
+            .card {
+                height: 300px;
+            }
+        }
+    </style>
 </head>
+
 <body>
-    <div class="container mx-auto mt-8">
-        <h1 class="text-3xl font-bold">About Us</h1>
-        <p class="text-gray-600">We are a company dedicated to providing top-notch services to our users.</p>
+    <header>
+        <h1>About Us</h1>
+    </header>
+
+    <div class="container">
+        <!-- Vedant Kale Card -->
+        <div class="card-container">
+            <div class="card">
+                <div class="card-front">
+                    <h2 class="section-title">Vedant Kale</h2>
+                    <p class="section-content">Click to know more about Vedant.</p>
+                </div>
+                <div class="card-back">
+                    <h2 class="section-title">Vedant Kale</h2>
+                    <p class="section-content">Skilled in using Flask to build web applications, enabling efficient data
+                        visualization and interaction with users through web-based platforms. Highly proficient in
+                        Machine Learning, leveraging algorithms and models to extract valuable insights and predictions
+                        from data to support decision-making processes..</p>
+                </div>
+            </div>
+        </div>
+        <div class="card-container">
+            <div class="card">
+                <div class="card-front">
+                    <h2 class="section-title">Aditya Joshi</h2>
+                    <p class="section-content">Click to know more about Aditya</p>
+                </div>
+                <div class="card-back">
+                    <h2 class="section-title">Aditya Joshi</h2>
+                    <p class="section-content">Expertise in frontend development, with a focus on creating visually
+                        appealing and user-friendly web pages.Specializes in designing attractive and interactive user
+                        interfaces that enhance the user experience.</p>
+                </div>
+            </div>
+        </div>
+        <div class="card-container">
+            <div class="card">
+                <div class="card-front">
+                    <h2 class="section-title">Prathamesh Dudhale</h2>
+                    <p class="section-content">Click to know more about Prathamesh</p>
+                </div>
+                <div class="card-back">
+                    <h2 class="section-title">Prathamesh Dudhale</h2>
+                    <p class="section-content">Actively exploring MongoDB, gaining proficiency in database management
+                        and optimization techniques.Deepening knowledge and skills in frontend development, with an
+                        interest in creating dynamic and responsive web applications.</p>
+                </div>
+            </div>
+        </div>
+        <div class="card-container">
+            <div class="card">
+                <div class="card-front">
+                    <h2 class="section-title">Tejas Borhade</h2>
+                    <p class="section-content">Click to know more about Tejas.</p>
+                </div>
+                <div class="card-back">
+                    <h2 class="section-title">Tejas Borhade</h2>
+                    <p class="section-content">Full stack web developer with proficiency in both frontend and backend
+                        technologies, offering a comprehensive understanding of web application architecture.
+                        Experienced in integrating various technologies and developing robust, scalable applications
+                        across the entire development stack.</p>
+                </div>
+            </div>
+        </div>
     </div>
+
+    <!-- Footer -->
+    <footer class="bg-white border-t mt-8 sm:mt-16 py-6 sm:py-8">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-gray-600">
+            <p>&copy; 2025 PortfolioHub. All rights reserved.</p>
+        </div>
+    </footer>
+    <a href="/" class="floating-home-button"
+        style="position: fixed; bottom: 30px; right: 30px; width: 50px; height: 50px; background: linear-gradient(135deg, #667eea, #764ba2); border-radius: 25px; display: flex; align-items: center; justify-content: center; color: white; box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4); cursor: pointer; transition: transform 0.2s ease, box-shadow 0.2s ease; text-decoration: none; animation: float 2s infinite ease-in-out;">
+        <svg class="home-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"
+            style="width: 24px; height: 24px;">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6">
+            </path>
+        </svg>
+    </a>
+
+    <style>
+        @keyframes float {
+
+            0%,
+            100% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(-10px);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .floating-home-button {
+                bottom: 20px;
+                right: 20px;
+                width: 45px;
+                height: 45px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .floating-home-button {
+                bottom: 15px;
+                right: 15px;
+                width: 40px;
+                height: 40px;
+            }
+
+            .home-icon {
+                width: 18px;
+                height: 18px;
+            }
+        }
+    </style>
 </body>
+
 </html>
