@@ -23,7 +23,7 @@
 
 1. **Clone the Repository**:
    \`\`\`bash
-   git clone https://github.com/your-username/portfoliohub.git
+   git clone https://github.com/VedantKale106/PortfolioHub.git
    cd portfoliohub
    \`\`\`
 
