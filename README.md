@@ -3,6 +3,12 @@
 **PortfolioHub** is a customizable, dynamic portfolio template designed to showcase your skills, projects, and achievements with a sleek, modern, and responsive interface. This project is built using **Flask** for the backend, **MongoDB** for data storage, and a combination of **HTML**, **CSS**, and **JavaScript** for the front end.
 
 ---
+### 📝 Hey Fellow Developers!
+
+Want to contribute by adding your own awesome template? Awesome! 🎉 Just check out the `/templates/generic.html` file. You'll find all the instructions there to help you get started.
+
+Can't wait to see what you come up with! 😎
+---
 
 ### 🌟 Features:
 - **Responsive Design** 📱: Optimized for all devices.
@@ -81,7 +87,7 @@
    The application will be accessible at: \`http://127.0.0.1:5000/\`.
 
 ---
-### 📝 For Fellow Developers If you want to give your own template, Please Refer /templates/themes/generic.html file. Instructions are given there
+
 
 ### 💡 How to Customize Your Portfolio:
 
