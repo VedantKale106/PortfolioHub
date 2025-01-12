@@ -32,16 +32,18 @@
    Using **virtualenv**:
    \`\`\`bash
    virtualenv venv
+   
    source venv/bin/activate  # Linux/Mac
+   
    venv\Scripts\activate     # Windows
    \`\`\`
 
-4. **Install Dependencies**:
+5. **Install Dependencies**:
    \`\`\`bash
    pip install -r requirements.txt
    \`\`\`
 
-5. **Configure MongoDB**:
+6. **Configure MongoDB**:
    - Start MongoDB locally or connect to a remote server.
    - Create a database named **portfoliohub** and a collection called **profiles**.
    - Insert a sample user profile in **JSON** format:
@@ -72,7 +74,7 @@
    }
    \`\`\`
 
-6. **Start the Flask Application**:
+7. **Start the Flask Application**:
    \`\`\`bash
    python app.py
    \`\`\`
