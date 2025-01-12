@@ -24,10 +24,11 @@
 1. **Clone the Repository**:
    \`\`\`bash
    git clone https://github.com/VedantKale106/PortfolioHub.git
+   
    cd portfoliohub
    \`\`\`
 
-2. **Set Up a Virtual Environment** (Optional):
+3. **Set Up a Virtual Environment** (Optional):
    Using **virtualenv**:
    \`\`\`bash
    virtualenv venv
@@ -35,12 +36,12 @@
    venv\Scripts\activate     # Windows
    \`\`\`
 
-3. **Install Dependencies**:
+4. **Install Dependencies**:
    \`\`\`bash
    pip install -r requirements.txt
    \`\`\`
 
-4. **Configure MongoDB**:
+5. **Configure MongoDB**:
    - Start MongoDB locally or connect to a remote server.
    - Create a database named **portfoliohub** and a collection called **profiles**.
    - Insert a sample user profile in **JSON** format:
@@ -71,7 +72,7 @@
    }
    \`\`\`
 
-5. **Start the Flask Application**:
+6. **Start the Flask Application**:
    \`\`\`bash
    python app.py
    \`\`\`
