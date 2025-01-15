@@ -13,7 +13,7 @@ app.secret_key = os.getenv("SECRET_KEY")
 app.config["MONGO_URI"] = os.getenv("MONGO_URI")
 mongo = PyMongo(app)
 
-# Index Route
+# Index Route, Login Page
 @app.route("/")
 def index():
     if "user_id" in session:
